@@ -57,7 +57,7 @@ Guidelines:
 - **No need to be functional.**
 
 <p align="center">
-  <img src="screenshots/activity_2.png" height="400" />
+  <img src="screenshots/activity_2.png" height="400" width="220" />
 </p>
 
 ---
@@ -80,7 +80,7 @@ Create a basic form.
 - Ignore the checkbox
 
 <p align="center">
-  <img src="screenshots/activity_3.png" height="400" />
+  <img src="screenshots/activity_3.png" height="400" width="220" />
 </p>
 
 ---
@@ -138,10 +138,11 @@ Additional thoughts:
 - Use navigator.pop for backbutton (goes back to welcome)
 
 <p align="center">
-  <img src="screenshots/activity_5A.png" height="400" />
-  <img src="screenshots/activity_5B.png" height="400" />
-  <img src="screenshots/activity_5C.png" height="400" />
-  <img src="screenshots/activity_5D.png" height="400" />
+  <img src="screenshots/activity_5A.png" height="400" width="220" />
+  <img src="screenshots/activity_5B.png" height="400" width="220" />
+  <br>
+  <img src="screenshots/activity_5C.png" height="400" width="220" />
+  <img src="screenshots/activity_5D.png" height="400" width="220" />
 </p>
 
 ---
