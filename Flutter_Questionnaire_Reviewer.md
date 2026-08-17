@@ -8,51 +8,63 @@ A study companion for the conceptual questions in the Flutter Guide (activities 
 
 **Flutter vs Native — pros and cons**
 
-| | Flutter | Native (Kotlin/Swift) |
-|---|---|---|
-| Codebase | One codebase → iOS + Android | Separate codebase per platform |
-| Performance | Compiles to native ARM code (via Skia/Impeller rendering engine), very close to native, but still an extra rendering layer | Direct access to platform APIs, typically fastest possible |
-| Development speed | Fast — hot reload, shared UI/business logic | Slower — duplicate work across platforms |
-| UI consistency | Pixel-perfect same UI on both platforms | UI can subtly differ per platform |
-| Access to new platform APIs | May lag behind — needs a plugin or platform channel | Immediate access to latest OS features |
-| App size | Slightly larger (bundles the Flutter engine) | Smaller, platform-optimized |
-| Team/cost | One team, one skillset, cheaper long-term | Two teams (or two skillsets), costlier |
+- Dart + Flutter = cross-platform development
+- Kotlin = native Android development
+- Swift = native iOS development
 
-**Core advantage for a mobile app like PalawanPay**
+|                             | Flutter                                                                                                                    | Native (Kotlin/Swift)                                      |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Codebase                    | One codebase → iOS + Android                                                                                               | Separate codebase per platform                             |
+| Performance                 | Compiles to native ARM code (via Skia/Impeller rendering engine), very close to native, but still an extra rendering layer | Direct access to platform APIs, typically fastest possible |
+| Development speed           | Fast — hot reload, shared UI/business logic                                                                                | Slower — duplicate work across platforms                   |
+| UI consistency              | Pixel-perfect same UI on both platforms                                                                                    | UI can subtly differ per platform                          |
+| Access to new platform APIs | May lag behind — needs a plugin or platform channel                                                                        | Immediate access to latest OS features                     |
+| App size                    | Slightly larger (bundles the Flutter engine)                                                                               | Smaller, platform-optimized                                |
+| Team/cost                   | One team, one skillset, cheaper long-term                                                                                  | Two teams (or two skillsets), costlier                     |
+
+**Core advantage for a mobile app like PalawanPay**  
 Think about what a fintech/e-wallet company actually needs:
+
 - **Speed to market** — one team ships iOS and Android simultaneously instead of double the work.
 - **Consistent UX/branding** — a wallet app needs identical behavior and look on both platforms (compliance, trust, support consistency).
 - **Cost efficiency** — one codebase = smaller dev team, easier maintenance, faster bug fixes (a security fix ships to both platforms at once).
 - **Fast iteration** — hot reload speeds up building/testing new features (promos, new payment rails, etc.).
 
-*When you answer this in your assessment, tie it back to business reasons (cost, speed, consistency) — not just "it's easier to code."*
+_When you answer this in your assessment, tie it back to business reasons (cost, speed, consistency) — not just "it's easier to code."_
 
 ---
 
 ## 2. What is Dart Language?
 
 **Fundamentals to know cold:**
+
 - **Variables:** `var`, `final`, `const` — know the difference (`final` = set once at runtime, `const` = compile-time constant).
 - **Conditions:** `if/else`, `switch`, ternary `? :`, null-aware operators `??`, `??=`, `?.`.
+  - `??` — if null, use a fallback
+  - `??=` — assign only if null
+  - `?..` — null-aware cascade (This lets you perform multiple operations only if the object isn't null.)
+
 - **Classes:** constructors (default, named, factory), `this.field` shorthand, inheritance (`extends`), interfaces (`implements`), mixins (`with`).
 - **Abstract classes:** classes that can't be instantiated directly, used to define a contract for subclasses (e.g., a `Repository` abstract class with `getData()` that concrete classes implement).
 - **Functions:** named/positional/optional parameters, arrow functions (`=>`), anonymous functions, closures.
 - **Async:** `Future`, `async`/`await`, `Stream`, `async*`, `Future.wait()` for parallel calls.
 
-**Null safety**
+**Null safety**  
 Dart's type system distinguishes nullable (`String?`) from non-nullable (`String`) types at compile time. This prevents null reference errors at runtime by forcing you to handle the null case explicitly (via `?.`, `??`, `!`, or null checks) before the code compiles. It shifts a common runtime crash into a compile-time warning/error.
 
 **Dart vs JavaScript vs TypeScript**
 
-| Aspect | Dart | JavaScript | TypeScript |
-|---|---|---|---|
-| Typing | Statically typed (sound null safety) | Dynamically typed | Statically typed (via annotations, compiles to JS) |
-| Compilation | Compiles to native/ARM (mobile) or JS (web) | Interpreted/JIT | Transpiles to JS |
-| OOP | Class-based, similar to Java/C# | Prototype-based (classes are sugar) | Class-based like Dart, built on JS prototypes |
-| Async | `Future`/`async`/`await`, `Stream` | `Promise`/`async`/`await` | Same as JS |
-| Null handling | Built-in sound null safety | No native null safety (undefined vs null) | Optional strict null checks (`strictNullChecks`) |
+| Aspect        | Dart                                        | JavaScript                                | TypeScript                                         |
+| ------------- | ------------------------------------------- | ----------------------------------------- | -------------------------------------------------- |
+| Typing        | Statically typed (sound null safety)        | Dynamically typed                         | Statically typed (via annotations, compiles to JS) |
+| Compilation   | Compiles to native/ARM (mobile) or JS (web) | Interpreted/JIT                           | Transpiles to JS                                   |
+| OOP           | Class-based, similar to Java/C#             | Prototype-based (classes are sugar)       | Class-based like Dart, built on JS prototypes      |
+| Async         | `Future`/`async`/`await`, `Stream`          | `Promise`/`async`/`await`                 | Same as JS                                         |
+| Null handling | Built-in sound null safety                  | No native null safety (undefined vs null) | Optional strict null checks (`strictNullChecks`)   |
 
-**Similarities:** both Dart and TS use `async/await`, arrow functions, interfaces/classes, and are designed to catch errors before runtime compared to plain JS. **Key difference:** Dart's null safety is baked into the language and enforced by the compiler; TypeScript's is optional/configurable and can still be bypassed at runtime since it compiles down to plain JS.
+**Similarities:** both Dart and TS use `async/await`, arrow functions, interfaces/classes, and are designed to catch errors before runtime compared to plain JS.
+
+**Key difference:** Dart's null safety is baked into the language and enforced by the compiler; TypeScript's is optional/configurable and can still be bypassed at runtime since it compiles down to plain JS.
 
 ---
 
@@ -78,22 +90,27 @@ Dart's type system distinguishes nullable (`String?`) from non-nullable (`String
 
 - **Why it matters:** as an app grows, passing data manually through many widget constructors ("prop drilling") becomes unmanageable. State management provides a structured way to store, update, and share app data (state) across widgets without tightly coupling UI to logic.
 
-- **Separating business logic from UI:** state management patterns (like BLOC/Cubit, Provider, Riverpod) move data-fetching, validation, and business rules out of widget `build()` methods and into dedicated classes. The UI only *listens* to state and *dispatches* events/actions — it doesn't contain the logic itself. This makes code more testable (you can unit test business logic without rendering UI), reusable, and easier to maintain.
+- **Separating business logic from UI:** state management patterns (like BLOC/Cubit, Provider, Riverpod) move data-fetching, validation, and business rules out of widget `build()` methods and into dedicated classes. The UI only _listens_ to state and _dispatches_ events/actions — it doesn't contain the logic itself. This makes code more testable (you can unit test business logic without rendering UI), reusable, and easier to maintain.
 
 ---
 
-## 5. What is a BLOC?
+## 5. What is a BLoC? (Business Logic Component)
 
-- **Why BLOC:** enforces a strict, predictable, testable separation between UI and business logic using a unidirectional data flow: UI → Event → BLOC → State → UI.
+- **Why BLOC:** enforces a strict, predictable, testable separation between UI and business logic using a unidirectional data flow:  
+  `UI → Event → BLOC → State → UI.`
 
 - **Primary ingredients:**
-  - **Events** — inputs describing *what happened* (e.g., `SubmitFormEvent`).
-  - **States** — outputs describing *what the UI should show* (e.g., `FormLoading`, `FormSuccess`, `FormFailure`).
+  - **Events** — inputs describing _what happened_ (e.g., `SubmitFormEvent`).
+  - **States** — outputs describing _what the UI should show_ (e.g., `FormLoading`, `FormSuccess`, `FormFailure`).
   - **Bloc** — maps incoming events to outgoing states, usually containing the business logic (or delegating to a repository).
-  - **Repository** — abstracts data sources (API, local storage, database) away from the BLOC, so the BLOC doesn't care *where* data comes from.
+  - **Repository** — abstracts data sources (API, local storage, database) away from the BLOC, so the BLOC doesn't care _where_ data comes from.
   - **Listener/Builder** — widgets (`BlocListener`, `BlocBuilder`, `BlocConsumer`) that react to state changes: `BlocBuilder` rebuilds UI, `BlocListener` performs side effects (navigation, dialogs) without rebuilding.
 
-- **Cubit:** a simplified version of Bloc — no separate `Event` classes; you call methods directly on the Cubit to emit new states. Use Cubit when the logic is simple and you don't need the fine-grained event traceability that full Bloc provides (e.g., simple toggles, straightforward form submissions). Use full Bloc when you want strict event-driven architecture, easier debugging/tracing of "what caused this state," or more complex flows (e.g., event transformations, debouncing).
+- **Cubit:** a simplified version of Bloc — no separate `Event` classes; you call methods directly on the Cubit to emit new states. Use Cubit when the logic is simple and you don't need the fine-grained event traceability that full Bloc provides (e.g., simple toggles, straightforward form submissions). Use full Bloc when you want strict event-driven architecture, easier debugging/tracing of "what caused this state," or more complex flows (e.g., event transformations, debouncing).  
+  `UI → Cubit → State → UI.`
+
+- Cubit = direct actions → new state  
+  BLoC = events → logic → new state
 
 ---
 
@@ -134,18 +151,19 @@ Dart's type system distinguishes nullable (`String?`) from non-nullable (`String
 
 - **POST vs GET:**
 
-| | GET | POST |
-|---|---|---|
-| Purpose | Retrieve data | Send/create data |
-| Data location | URL query parameters | Request body |
-| Caching | Can be cached | Not typically cached |
-| Idempotent | Yes (same call = same result) | No (each call can create new data) |
-| Body size | Limited (URL length limits) | Can send large payloads |
-| Use case | Fetching account balance, list of transactions | Submitting a registration form, initiating a transfer |
+|               | GET                                            | POST                                                  |
+| ------------- | ---------------------------------------------- | ----------------------------------------------------- |
+| Purpose       | Retrieve data                                  | Send/create data                                      |
+| Data location | URL query parameters                           | Request body                                          |
+| Caching       | Can be cached                                  | Not typically cached                                  |
+| Idempotent    | Yes (same call = same result)                  | No (each call can create new data)                    |
+| Body size     | Limited (URL length limits)                    | Can send large payloads                               |
+| Use case      | Fetching account balance, list of transactions | Submitting a registration form, initiating a transfer |
 
 ---
 
 ## Quick self-check before your assessment
-- Can you explain **why**, not just **what**, for each concept? (e.g., not just "BLOC has events and states," but *why* that separation exists.)
+
+- Can you explain **why**, not just **what**, for each concept? (e.g., not just "BLOC has events and states," but _why_ that separation exists.)
 - Can you connect each topic back to the PalawanPay context where the guide hints at it (Flutter choice, Secure Storage)? Those are the "Additional Thoughts" questions and are likely where deeper reasoning is expected.
-- Can you explain the *trade-offs* (Stateless vs Stateful, Cubit vs Bloc, SharedPreferences vs Secure Storage, GET vs POST) rather than just definitions?
+- Can you explain the _trade-offs_ (Stateless vs Stateful, Cubit vs Bloc, SharedPreferences vs Secure Storage, GET vs POST) rather than just definitions?
