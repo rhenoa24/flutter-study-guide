@@ -78,6 +78,31 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+
+      bottomNavigationBar: SizedBox(
+        height: 80,
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: 0,
+          selectedItemColor: colorScheme.primaryContainer,
+          unselectedItemColor: colorScheme.secondaryContainer,
+          showUnselectedLabels: true,
+          onTap: (index) {},
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.card_giftcard),
+              label: 'Rewards',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: 'QR'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.receipt_long),
+              label: 'Transactions',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.help), label: 'Help'),
+          ],
+        ),
+      ),
     );
   }
 }
