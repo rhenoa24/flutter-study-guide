@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Roboto',
       ),
+      debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
     );
   }
@@ -55,13 +56,24 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
 
-            children: [
+            children: const [
               _HeaderRow(),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               _TabRow(),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
+              //
               _BalanceCard(),
-              const SizedBox(height: 20),
+              SizedBox(height: 28),
+              //
+              _SectionTitle(title: 'Quick Actions'),
+              SizedBox(height: 12),
+              _QuickActionsRow(),
+              SizedBox(height: 28),
+              //
+              _SectionTitle(title: 'Services'),
+              SizedBox(height: 12),
+              _ServicesGrid(),
+              SizedBox(height: 28),
             ],
           ),
         ),
@@ -92,7 +104,7 @@ class _HeaderRow extends StatelessWidget {
         const SizedBox(width: 12),
         Text(
           'Good Evening!',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const Spacer(),
         Icon(Icons.mail_outline, size: 26, color: colorScheme.primaryContainer),
@@ -235,22 +247,130 @@ class _BalanceCard extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _PillButton(
-                  icon: Icons.download_outlined,
-                  label: 'Cash In',
-                ),
+                child: _PillButton(icon: Icons.download, label: 'Cash In'),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _PillButton(
-                  icon: Icons.upload_outlined,
-                  label: 'Cash Out',
-                ),
+                child: _PillButton(icon: Icons.upload, label: 'Cash Out'),
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+// Section Header Text
+class _SectionTitle extends StatelessWidget {
+  final String title;
+  const _SectionTitle({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+// Reusable Action Tiles
+class _ActionTile extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _ActionTile({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      decoration: BoxDecoration(
+        color: colorScheme.onInverseSurface,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 26, color: colorScheme.primary),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ============================================================
+// MEDIUM WIDGETS
+// ============================================================
+
+// Action Buttons - Quick Actions
+class _QuickActionsRow extends StatelessWidget {
+  const _QuickActionsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: const [
+        Expanded(
+          child: _ActionTile(icon: Icons.description, label: 'Pay Bills'),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: _ActionTile(icon: Icons.person, label: 'Send Money'),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: _ActionTile(
+            icon: Icons.account_balance,
+            label: 'Bank Transfer',
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// Action Buttons - Services
+class _ServicesGrid extends StatelessWidget {
+  const _ServicesGrid();
+
+  static const List<Map<String, dynamic>> _items = [
+    {'icon': Icons.smartphone, 'label': 'Buy Load'},
+    {'icon': Icons.account_balance, 'label': 'Loans'},
+    {'icon': Icons.credit_card, 'label': 'Cards'},
+    {'icon': Icons.savings, 'label': 'PalaSave'},
+    {'icon': Icons.shield, 'label': 'ProtektODO'},
+    {'icon': Icons.paid, 'label': 'Claim Remittance'},
+    {'icon': Icons.public, 'label': 'Pera Padala Abroad'},
+    {'icon': Icons.diamond, 'label': 'Buy Jewelry'},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: _items.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        mainAxisSpacing: 12,
+        crossAxisSpacing: 12,
+        childAspectRatio: 1,
+      ),
+      itemBuilder: (context, index) {
+        final item = _items[index];
+        return _ActionTile(icon: item['icon'], label: item['label']);
+      },
     );
   }
 }
