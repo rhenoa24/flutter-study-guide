@@ -79,30 +79,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: SizedBox(
-        height: 80,
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: 0,
-          selectedItemColor: colorScheme.primaryContainer,
-          unselectedItemColor: colorScheme.secondaryContainer,
-          showUnselectedLabels: true,
-          onTap: (index) {},
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.card_giftcard),
-              label: 'Rewards',
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: 'QR'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long),
-              label: 'Transactions',
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.help), label: 'Help'),
-          ],
-        ),
-      ),
+      bottomNavigationBar: _BottomNavigation(),
     );
   }
 }
@@ -155,9 +132,7 @@ class _TabItem extends StatelessWidget {
           label,
           style: TextStyle(
             fontSize: 16,
-            color: isSelected
-                ? colorScheme.onSurface
-                : colorScheme.secondaryContainer,
+            color: isSelected ? colorScheme.onSurface : colorScheme.outline,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
         ),
@@ -314,14 +289,14 @@ class _ActionTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       decoration: BoxDecoration(
-        color: colorScheme.onInverseSurface,
+        color: colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 26, color: colorScheme.primary),
+          Icon(icon, size: 26, color: colorScheme.primaryContainer),
           const SizedBox(height: 8),
           Text(
             label,
@@ -396,6 +371,70 @@ class _ServicesGrid extends StatelessWidget {
         final item = _items[index];
         return _ActionTile(icon: item['icon'], label: item['label']);
       },
+    );
+  }
+}
+
+// ============================================================
+// BOTTOM NAVIGATION
+// ============================================================
+class _BottomNavigation extends StatelessWidget {
+  const _BottomNavigation();
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return SizedBox(
+      height: 80,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.topCenter,
+        children: [
+          SizedBox(
+            height: 80,
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: 0,
+              unselectedFontSize: 12,
+              selectedItemColor: colorScheme.primaryContainer,
+              selectedLabelStyle: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+              showUnselectedLabels: true,
+              onTap: (index) {},
+              items: [
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.card_giftcard),
+                  label: 'Rewards',
+                ),
+                BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: 'QR'),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.receipt_long),
+                  label: 'Transactions',
+                ),
+                BottomNavigationBarItem(icon: Icon(Icons.help), label: 'Help'),
+              ],
+            ),
+          ),
+
+          Positioned(
+            top: -18,
+            child: SizedBox(
+              width: 60,
+              height: 60,
+              child: Material(
+                color: colorScheme.primaryContainer,
+                shape: CircleBorder(),
+                elevation: 3,
+                child: Icon(Icons.qr_code, size: 30),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
