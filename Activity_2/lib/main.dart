@@ -51,31 +51,48 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _HeaderRow(),
+                  SizedBox(height: 20),
+                  _TabRow(),
+                  //
+                ],
+              ),
+            ),
 
-            children: const [
-              _HeaderRow(),
-              SizedBox(height: 20),
-              _TabRow(),
-              SizedBox(height: 20),
-              //
-              _BalanceCard(),
-              SizedBox(height: 28),
-              //
-              _SectionTitle(title: 'Quick Actions'),
-              SizedBox(height: 12),
-              _QuickActionsRow(),
-              SizedBox(height: 28),
-              //
-              _SectionTitle(title: 'Services'),
-              SizedBox(height: 12),
-              _ServicesGrid(),
-              SizedBox(height: 28),
-            ],
-          ),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: const [
+                    _BalanceCard(),
+                    SizedBox(height: 28),
+                    //
+                    _SectionTitle(title: 'Quick Actions'),
+                    SizedBox(height: 12),
+                    _QuickActionsRow(),
+                    SizedBox(height: 28),
+                    //
+                    _SectionTitle(title: 'Services'),
+                    SizedBox(height: 12),
+                    _ServicesGrid(),
+                    SizedBox(height: 28),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
 
