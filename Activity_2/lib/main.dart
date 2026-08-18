@@ -391,8 +391,13 @@ class _BottomNavigation extends StatelessWidget {
         clipBehavior: Clip.none,
         alignment: Alignment.topCenter,
         children: [
-          SizedBox(
+          Container(
             height: 80,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(color: colorScheme.onPrimary, width: 2),
+              ),
+            ),
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               currentIndex: 0,
@@ -421,7 +426,7 @@ class _BottomNavigation extends StatelessWidget {
           ),
 
           Positioned(
-            top: -18,
+            top: -16,
             child: SizedBox(
               width: 60,
               height: 60,
