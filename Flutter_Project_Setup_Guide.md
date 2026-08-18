@@ -55,10 +55,10 @@ flutter create . \
 **Optional flags you may want:**
 
 ```bash
-flutter create . \
-  --org com.yourcompany \
-  --project-name your_project_name \
-  --platforms=android,ios \
+flutter create .
+  --org com.yourcompany
+  --project-name your_project_name
+  --platforms=android,ios
   --template=app
 ```
 
