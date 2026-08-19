@@ -102,11 +102,18 @@ class _FormScreenState extends State<FormScreen> {
     'etc.',
   ];
 
+  // Just for debug!
   void _onNext() {
-    // Just for debug!
     debugPrint(_details.toString());
     const SnackBar(
       content: Text('Next button pressed! Details has been logged.'),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme = Theme.of(context).colorScheme;
+
+    return Scaffold(backgroundColor: ColorScheme.surface);
   }
 }
