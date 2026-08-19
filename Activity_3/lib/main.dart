@@ -47,7 +47,7 @@ class PersonalDetails {
   String middleName;
   bool noMiddleName;
   String lastName;
-  String suffix;
+  String? suffix;
   String? gender;
   String? nationality;
 
@@ -209,7 +209,7 @@ class _FormScreenState extends State<FormScreen> {
                       style: TextStyle(color: colorScheme.outline),
                     ),
                     const SizedBox(height: 14),
-                    _PillButton(
+                    _FormButton(
                       label: 'Next',
                       onPressed: _details.isComplete ? _onNext : null,
                     ),
@@ -320,7 +320,7 @@ class _TextField extends StatelessWidget {
 
     return TextFormField(
       enabled: enabled,
-      // onChanged: onChanged,
+      onChanged: onChanged,
       decoration: InputDecoration(
         labelText: label,
         filled: true,
@@ -347,13 +347,11 @@ class _TextField extends StatelessWidget {
 
 class _DropdownField extends StatelessWidget {
   final String label;
-  final String? value;
   final List<String> items;
   final ValueChanged<String?> onChanged;
 
   const _DropdownField({
     required this.label,
-    this.value,
     required this.items,
     required this.onChanged,
   });
@@ -363,7 +361,6 @@ class _DropdownField extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return DropdownButtonFormField(
-      initialValue: value,
       onChanged: onChanged,
       decoration: InputDecoration(
         labelText: label,
@@ -390,23 +387,23 @@ class _DropdownField extends StatelessWidget {
   }
 }
 
-class _PillButton extends StatelessWidget {
+class _FormButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
 
-  const _PillButton({required this.label, this.onPressed});
+  const _FormButton({required this.label, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return SizedBox(
+      height: 52,
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primaryContainer,
           foregroundColor: colorScheme.onSurface,
-          padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
