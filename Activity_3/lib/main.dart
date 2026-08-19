@@ -189,6 +189,7 @@ class _FormScreenState extends State<FormScreen> {
                     const SizedBox(height: 14),
                     _DropdownField(
                       label: 'Gender',
+                      value: _details.gender,
                       items: _genderOptions,
                       onChanged: (value) {
                         setState(() => _details.gender = value);
@@ -197,6 +198,7 @@ class _FormScreenState extends State<FormScreen> {
                     const SizedBox(height: 14),
                     _DropdownField(
                       label: 'Nationality',
+                      value: _details.nationality,
                       items: _nationalityOptions,
                       onChanged: (value) {
                         setState(() => _details.nationality = value);
@@ -239,10 +241,17 @@ class _AppBar extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back, size: 24)),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.arrow_back,
+              size: 24,
+              color: colorScheme.primaryContainer,
+            ),
+          ),
           const SizedBox(width: 4),
           Text(
             label,
@@ -271,7 +280,7 @@ class _InfoBanner extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.info, size: 22),
+          Icon(Icons.info, size: 22, color: colorScheme.primaryContainer),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
@@ -340,6 +349,10 @@ class _TextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: colorScheme.primaryContainer),
         ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: colorScheme.surfaceContainerLow),
+        ),
       ),
     );
   }
@@ -347,11 +360,13 @@ class _TextField extends StatelessWidget {
 
 class _DropdownField extends StatelessWidget {
   final String label;
+  final String? value;
   final List<String> items;
   final ValueChanged<String?> onChanged;
 
   const _DropdownField({
     required this.label,
+    required this.value,
     required this.items,
     required this.onChanged,
   });
@@ -361,6 +376,8 @@ class _DropdownField extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return DropdownButtonFormField(
+      initialValue: value,
+      isExpanded: true,
       onChanged: onChanged,
       decoration: InputDecoration(
         labelText: label,
@@ -410,7 +427,7 @@ class _FormButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Text(
-          'Next',
+          label,
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
         ),
       ),
