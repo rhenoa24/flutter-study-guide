@@ -114,6 +114,153 @@ class _FormScreenState extends State<FormScreen> {
   Widget build(BuildContext context) {
     final ColorScheme = Theme.of(context).colorScheme;
 
-    return Scaffold(backgroundColor: ColorScheme.surface);
+    return Scaffold(
+      backgroundColor: ColorScheme.surface,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Nav + Banner
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [_AppBar(), _InfoBanner()],
+              ),
+            ),
+            // Form
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _SectionTitle(text: 'BASIC DETAILS'),
+                    const SizedBox(height: 12),
+                    _TextField(label: 'First Name'),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================
+// REUSABLE WIDGETS
+// ============================================================
+
+class _AppBar extends StatelessWidget {
+  const _AppBar();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: Row(
+        children: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back, size: 24)),
+          const SizedBox(width: 4),
+          Text(
+            'Details',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoBanner extends StatelessWidget {
+  const _InfoBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.info, size: 22),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              'Please complete the registration process.\n All fields are required.',
+              style: TextStyle(fontSize: 14, height: 1.4),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  final String text;
+  const _SectionTitle({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 0.5,
+      ),
+    );
+  }
+}
+
+class _TextField extends StatelessWidget {
+  final String label;
+  // final ValueChanged<String> onChanged;
+  final bool enabled;
+
+  const _TextField({
+    required this.label,
+    // required this.onChanged,
+    this.enabled = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme = Theme.of(context).colorScheme;
+
+    return TextFormField(
+      enabled: enabled,
+      // onChanged: onChanged,
+      decoration: InputDecoration(
+        labelText: label,
+        filled: true,
+        fillColor: enabled
+            ? ColorScheme.surfaceContainerLow
+            : ColorScheme.surface,
+        contentPadding: const EdgeInsets.all(16),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: ColorScheme.surfaceContainerHighest),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: ColorScheme.surfaceContainerHighest),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: ColorScheme.primaryContainer),
+        ),
+      ),
+    );
   }
 }
