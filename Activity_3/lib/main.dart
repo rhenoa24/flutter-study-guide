@@ -1,3 +1,15 @@
+// ## 🎯 Activity 3
+
+// Create a basic form.
+
+// - Create datamodel for the details
+// - Use Textformfield for the text fields
+// - Use dropdown fields for Gender and Nationality
+// - Update the datamodel value with the form data using onchange listener and setState
+// - Next button only enables if all fields are complete. Utilize StatefulWidget and datamodel for logic.
+// - Ignore the back button functionality
+// - Ignore the checkbox
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,116 +19,69 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Activity 3',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color(0xFF007236),
+          brightness: Brightness.dark,
+          dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
         ),
+        fontFamily: 'Roboto',
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: const FormScreen(),
     );
   }
 }
+
+/// ---------------------------------------------------------------
+/// DATA MODEL
+/// ---------------------------------------------------------------
+
+class PersonalDetails {
+  String firstName;
+  String middleName;
+  bool noMiddleName;
+  String lastName;
+  String suffix;
+  String? gender;
+  String? nationality;
+
+  PersonalDetails({
+    this.firstName = '',
+    this.middleName = '',
+    this.noMiddleName = false,
+    this.lastName = '',
+    this.suffix = '',
+    this.gender,
+    this.nationality,
+  });
+
+  // BLoC (for form validation)
+  bool get isComplete {
+    final middleOk = noMiddleName || middleName.trim().isNotEmpty;
+    return firstName.trim().isNotEmpty &&
+        middleOk && // Middle name can be empty or filled
+        lastName.trim().isNotEmpty &&
+        gender != null &&
+        nationality != null;
+    // I didn't count the suffix as required, despite the clear infocard in the mockup
+    // because not everyone has suffixes. This would be terrible UX
+  }
+}
+
+// ============================================================
+// FORM SCREEN
+// ============================================================
+
+class FormScreen extends StatefulWidget {
+  const FormScreen({super.key});
+
+  @override
+  State<FormScreen> createState() => _FormScreenState();
+}
+
+class _FormScreenState extends State<FormScreen> {}
