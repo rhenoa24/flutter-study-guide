@@ -71,6 +71,11 @@ class PersonalDetails {
     // I didn't count the suffix as required, despite the clear infocard in the mockup
     // because not everyone has suffixes. This would be terrible UX
   }
+
+  @override
+  String toString() {
+    return 'PersonalDetails(firstName: $firstName, middleName: $middleName, noMiddleName: $noMiddleName, lastName: $lastName, suffix: $suffix, gender: $gender, nationality: $nationality)';
+  }
 }
 
 // ============================================================
@@ -84,4 +89,24 @@ class FormScreen extends StatefulWidget {
   State<FormScreen> createState() => _FormScreenState();
 }
 
-class _FormScreenState extends State<FormScreen> {}
+class _FormScreenState extends State<FormScreen> {
+  final PersonalDetails _details = PersonalDetails();
+
+  // Values for the dropdown fields
+  static const List<String> _genderOptions = ['Male', 'Female', 'Other'];
+  static const List<String> _nationalityOptions = [
+    'Filipino',
+    'American',
+    'Japanese',
+    'Spanish',
+    'etc.',
+  ];
+
+  void _onNext() {
+    // Just for debug!
+    debugPrint(_details.toString());
+    const SnackBar(
+      content: Text('Next button pressed! Details has been logged.'),
+    );
+  }
+}

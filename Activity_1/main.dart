@@ -57,7 +57,7 @@ void printCake(Cake cake) {
   print(cake.toString());
 }
 
-// 6️⃣ In your void main, create 5 data models, store it in an array.
+// 6️⃣ In your void main, create 6 data models, store it in an array.
 void main() {
   List<Cake> cakes = [
     Cake(flavor: 'Black Forest Cake', quantity: 10, isAvailable: true),
@@ -65,6 +65,7 @@ void main() {
     Cake(flavor: 'Ube Bloom Cake', quantity: 0, isAvailable: false),
     Cake(flavor: 'Tiramisu Cloud Cake', quantity: 8, isAvailable: true),
     Cake(flavor: 'Chocolate Mousse Cake', quantity: 3, isAvailable: true),
+    Cake(flavor: 'Mochaccino Delight Cake', quantity: 2, isAvailable: true),
   ];
 
   print('''
@@ -85,9 +86,9 @@ Submitted by: Alyssa Rhenoa Nicole Bautista
   // 8️⃣ In your void main after iteration block, compare index 1 and index 2.
   // Index 3 to index 5. Index 4 to index 4. (this is to test hashcode)
   print('\n# Comparing hashcode:');
-  print('Cake 1 == Cake 2: ${cakes[0] == cakes[1]}');
-  print('Cake 3 == Cake 5: ${cakes[2] == cakes[4]}');
-  print('Cake 4 == Cake 4: ${cakes[3] == cakes[3]}');
+  print('Index 1 == Index 2: ${cakes[1] == cakes[2]}');
+  print('Index 3 == Index 5: ${cakes[3] == cakes[5]}');
+  print('Index 4 == Index 4: ${cakes[4] == cakes[4]}');
 
   // 9️⃣ Use copyWith function to modify the int value. Print the results after. (for testing copyWith)
   Cake updated = cakes[0].copyWith(
