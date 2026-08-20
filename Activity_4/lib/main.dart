@@ -13,8 +13,8 @@
 // - Close and Rereun the application. Value must persist.
 // - Uninstall and reinstall the application. Value should be empty again.
 
-import 'package:activity_4/shared_prefs_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_ui/helpers/shared_prefs_helper.dart';
 import 'package:shared_ui/theme/app_theme.dart';
 import 'package:shared_ui/widgets/app_bar.dart';
 import 'package:shared_ui/widgets/form_button.dart';
