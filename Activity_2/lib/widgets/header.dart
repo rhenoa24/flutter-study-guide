@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class HeaderRow extends StatelessWidget {
-  const HeaderRow();
+  const HeaderRow({super.key});
 
   @override
   Widget build(BuildContext context) {
