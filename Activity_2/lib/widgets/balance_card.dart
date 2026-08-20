@@ -1,6 +1,6 @@
 // Balance Card
-import 'package:activity_2/widgets/pill_button.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_ui/widgets/pill_button.dart';
 
 class BalanceCard extends StatelessWidget {
   const BalanceCard({super.key});

@@ -10,8 +10,16 @@
 // - Ignore the back button functionality
 // - Ignore the checkbox
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_ui/theme/app_theme.dart';
+import 'package:shared_ui/widgets/app_bar.dart';
+import 'package:shared_ui/widgets/section_title.dart';
+import 'package:shared_ui/widgets/info_banner.dart';
+import 'package:shared_ui/widgets/form_field.dart';
+import 'package:shared_ui/widgets/form_checkbox.dart';
+import 'package:shared_ui/widgets/form_dropdown.dart';
+import 'package:shared_ui/widgets/form_button.dart';
+import 'package:shared_ui/widgets/form_reminder.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,14 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Activity 3',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Color(0xFF007236),
-          brightness: Brightness.dark,
-          dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
-        ),
-        fontFamily: 'Roboto',
-      ),
+      theme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       home: const FormScreen(),
     );
@@ -92,6 +93,7 @@ class FormScreen extends StatefulWidget {
 
 class _FormScreenState extends State<FormScreen> {
   final PersonalDetails _details = PersonalDetails();
+  final TextEditingController _middleNameController = TextEditingController();
 
   // Values for the dropdown fields
   static const List<String> _genderOptions = ['Male', 'Female', 'Other'];
@@ -122,14 +124,8 @@ class _FormScreenState extends State<FormScreen> {
           children: [
             // Nav + Banner
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _AppBar(label: 'Details'),
-                  _InfoBanner(),
-                ],
-              ),
+              padding: EdgeInsets.all(10),
+              child: TopAppBar(label: 'Details'),
             ),
             // Form
             Expanded(
@@ -138,46 +134,52 @@ class _FormScreenState extends State<FormScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _SectionTitle(text: 'BASIC DETAILS'),
+                    InfoBanner(
+                      text:
+                          'Please complete the registration process.\n'
+                          'All fields are required.',
+                    ),
+                    const SizedBox(height: 28),
+
+                    SectionTitle(title: 'BASIC DETAILS'),
                     const SizedBox(height: 14),
-                    _TextField(
+                    FormTextField(
                       label: 'First Name',
                       onChanged: (value) {
                         setState(() => _details.firstName = value);
                       },
                     ),
                     const SizedBox(height: 14),
-                    _TextField(
+                    FormTextField(
                       label: 'Middle Name (optional)',
                       enabled: !_details.noMiddleName,
+                      controller: _middleNameController,
                       onChanged: (value) {
                         setState(() => _details.middleName = value);
                       },
                     ),
                     const SizedBox(height: 14),
-                    CheckboxListTile(
-                      contentPadding: EdgeInsets.zero,
+                    FormCheckbox(
                       title: const Text('I don\'t have a middle name.'),
-                      controlAffinity: ListTileControlAffinity.leading,
                       value: _details.noMiddleName,
                       onChanged: (value) {
                         setState(() {
                           _details.noMiddleName = value ?? false;
                           if (_details.noMiddleName) {
-                            _details.middleName = '';
+                            _middleNameController.clear();
                           }
                         });
                       },
                     ),
                     const SizedBox(height: 14),
-                    _TextField(
+                    FormTextField(
                       label: 'Last Name',
                       onChanged: (value) {
                         setState(() => _details.lastName = value);
                       },
                     ),
                     const SizedBox(height: 14),
-                    _TextField(
+                    FormTextField(
                       label: 'Suffix (Jr. Sr. III)',
                       onChanged: (value) {
                         setState(() => _details.suffix = value);
@@ -185,9 +187,9 @@ class _FormScreenState extends State<FormScreen> {
                     ),
                     const SizedBox(height: 28),
                     //
-                    _SectionTitle(text: 'ADDITIONAL INFORMATION'),
+                    SectionTitle(title: 'ADDITIONAL INFORMATION'),
                     const SizedBox(height: 14),
-                    _DropdownField(
+                    FormDropdownField(
                       label: 'Gender',
                       value: _details.gender,
                       items: _genderOptions,
@@ -196,7 +198,7 @@ class _FormScreenState extends State<FormScreen> {
                       },
                     ),
                     const SizedBox(height: 14),
-                    _DropdownField(
+                    FormDropdownField(
                       label: 'Nationality',
                       value: _details.nationality,
                       items: _nationalityOptions,
@@ -211,12 +213,21 @@ class _FormScreenState extends State<FormScreen> {
                       style: TextStyle(color: colorScheme.outline),
                     ),
                     const SizedBox(height: 14),
-                    _FormButton(
+                    FormButton(
                       label: 'Next',
                       onPressed: _details.isComplete ? _onNext : null,
                     ),
                     const SizedBox(height: 8),
-                    if (!_details.isComplete) _EmptyReminder(),
+
+                    Visibility(
+                      visible: !_details.isComplete,
+                      maintainSize: true,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      child: const FormReminder(
+                        label: 'Please fill in all required fields.',
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -226,227 +237,10 @@ class _FormScreenState extends State<FormScreen> {
       ),
     );
   }
-}
-
-// ============================================================
-// REUSABLE WIDGETS
-// ============================================================
-
-class _AppBar extends StatelessWidget {
-  final String label;
-  const _AppBar({required this.label});
 
   @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.arrow_back,
-              size: 24,
-              color: colorScheme.primaryContainer,
-            ),
-          ),
-          const SizedBox(width: 4),
-          Text(
-            label,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _InfoBanner extends StatelessWidget {
-  const _InfoBanner();
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(Icons.info, size: 22, color: colorScheme.primaryContainer),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              'Please complete the registration process.\n'
-              'All fields are required.',
-              style: TextStyle(fontSize: 14, height: 1.4),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _SectionTitle extends StatelessWidget {
-  final String text;
-  const _SectionTitle({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 13,
-        fontWeight: FontWeight.bold,
-        letterSpacing: 0.5,
-      ),
-    );
-  }
-}
-
-class _TextField extends StatelessWidget {
-  final String label;
-  final ValueChanged<String> onChanged;
-  final bool enabled;
-
-  const _TextField({
-    required this.label,
-    required this.onChanged,
-    this.enabled = true,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return TextFormField(
-      enabled: enabled,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        labelText: label,
-        filled: true,
-        fillColor: enabled
-            ? colorScheme.surfaceContainerLow
-            : colorScheme.surface,
-        contentPadding: const EdgeInsets.all(16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: colorScheme.surfaceContainerHighest),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: colorScheme.surfaceContainerHighest),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: colorScheme.primaryContainer),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: colorScheme.surfaceContainerLow),
-        ),
-      ),
-    );
-  }
-}
-
-class _DropdownField extends StatelessWidget {
-  final String label;
-  final String? value;
-  final List<String> items;
-  final ValueChanged<String?> onChanged;
-
-  const _DropdownField({
-    required this.label,
-    required this.value,
-    required this.items,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return DropdownButtonFormField(
-      initialValue: value,
-      isExpanded: true,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        labelText: label,
-        filled: true,
-        fillColor: colorScheme.surfaceContainerLow,
-        contentPadding: const EdgeInsets.all(16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: colorScheme.surfaceContainerHighest),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: colorScheme.surfaceContainerHighest),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: colorScheme.primaryContainer),
-        ),
-      ),
-      items: items
-          .map((item) => DropdownMenuItem(value: item, child: Text(item)))
-          .toList(),
-    );
-  }
-}
-
-class _FormButton extends StatelessWidget {
-  final String label;
-  final VoidCallback? onPressed;
-
-  const _FormButton({required this.label, this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return SizedBox(
-      height: 52,
-      width: double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.primaryContainer,
-          foregroundColor: colorScheme.onSurface,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        onPressed: onPressed,
-        child: Text(
-          label,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-        ),
-      ),
-    );
-  }
-}
-
-class _EmptyReminder extends StatelessWidget {
-  const _EmptyReminder();
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Center(
-      child: Text(
-        'Please fill in all required fields.',
-        style: TextStyle(color: colorScheme.outline, fontSize: 13),
-      ),
-    );
+  void dispose() {
+    _middleNameController.dispose();
+    super.dispose();
   }
 }

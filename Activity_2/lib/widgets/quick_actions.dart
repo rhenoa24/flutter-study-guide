@@ -1,6 +1,6 @@
 // Action Buttons - Quick Actions
-import 'package:activity_2/widgets/action_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_ui/widgets/action_tile.dart';
 
 class QuickActionsRow extends StatelessWidget {
   const QuickActionsRow({super.key});

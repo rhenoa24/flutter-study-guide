@@ -10,15 +10,15 @@
 // - You can use alternate text and icons.
 // - **No need to be functional.**
 
-import 'package:activity_2/theme/app_theme.dart';
-import 'package:activity_2/widgets/bottom_nav.dart';
-import 'package:activity_2/widgets/grouped/balance_card.dart';
-import 'package:activity_2/widgets/grouped/home_tabs.dart';
-import 'package:activity_2/widgets/grouped/quick_actions.dart';
-import 'package:activity_2/widgets/grouped/services.dart';
-import 'package:activity_2/widgets/section_title.dart';
+import 'package:activity_2/widgets/balance_card.dart';
+import 'package:activity_2/widgets/home_tabs.dart';
+import 'package:activity_2/widgets/quick_actions.dart';
+import 'package:activity_2/widgets/services.dart';
 import 'package:flutter/material.dart';
-import 'widgets/header.dart';
+import 'package:shared_ui/theme/app_theme.dart';
+import 'package:shared_ui/widgets/bottom_nav.dart';
+import 'package:shared_ui/widgets/header.dart';
+import 'package:shared_ui/widgets/section_title.dart';
 
 void main() {
   runApp(const MyApp());
