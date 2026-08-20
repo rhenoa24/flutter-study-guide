@@ -10,8 +10,8 @@
 // - You can use alternate text and icons.
 // - **No need to be functional.**
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'header.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _HeaderRow(),
+                  HeaderRow(),
                   SizedBox(height: 20),
                   _TabRow(),
                   //
@@ -104,33 +104,6 @@ class HomeScreen extends StatelessWidget {
 // ============================================================
 // SMALL WIDGETS
 // ============================================================
-
-// Top Row Header: Avatar + Greeting + Mail Icons
-class _HeaderRow extends StatelessWidget {
-  const _HeaderRow();
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Row(
-      children: [
-        CircleAvatar(
-          radius: 24,
-          backgroundColor: colorScheme.primaryContainer,
-          child: Icon(Icons.person, color: colorScheme.onSurface, size: 28),
-        ),
-        const SizedBox(width: 12),
-        Text(
-          'Good Evening!',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        const Spacer(),
-        Icon(Icons.mail_outline, size: 26, color: colorScheme.primaryContainer),
-      ],
-    );
-  }
-}
 
 // Single Tab Label
 class _TabItem extends StatelessWidget {
@@ -260,17 +233,19 @@ class _BalanceCard extends StatelessWidget {
               Icon(Icons.chevron_right, size: 20),
             ],
           ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: _PillButton(icon: Icons.download, label: 'Cash In'),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _PillButton(icon: Icons.upload, label: 'Cash Out'),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: _PillButton(icon: Icons.download, label: 'Cash In'),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _PillButton(icon: Icons.upload, label: 'Cash Out'),
+                ),
+              ],
+            ),
           ),
         ],
       ),

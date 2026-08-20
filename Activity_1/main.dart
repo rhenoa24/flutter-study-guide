@@ -62,7 +62,7 @@ void main() {
   List<Cake> cakes = [
     Cake(flavor: 'Black Forest Cake', quantity: 10, isAvailable: true),
     Cake(flavor: 'Chocolate Bliss Cake', quantity: 5, isAvailable: true),
-    Cake(flavor: 'Ube Bloom Cake', quantity: 0, isAvailable: false),
+    Cake(flavor: 'Chocolate Bliss Cake', quantity: 5, isAvailable: true),
     Cake(flavor: 'Tiramisu Cloud Cake', quantity: 8, isAvailable: true),
     Cake(flavor: 'Chocolate Mousse Cake', quantity: 3, isAvailable: true),
     Cake(flavor: 'Mochaccino Delight Cake', quantity: 2, isAvailable: true),
@@ -77,7 +77,7 @@ void main() {
 Submitted by: Alyssa Rhenoa Nicole Bautista
 ''');
 
-  // 7️⃣ Iterate over the array and call the function. (should print toString() 5x)
+  // 7️⃣ Iterate over the array and call the function. (should print toString() 6x)
   print('\n# This is the list of Cakes:');
   for (var cake in cakes) {
     printCake(cake);
