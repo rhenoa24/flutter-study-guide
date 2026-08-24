@@ -1,13 +1,13 @@
 // Copied this code from Activity_3
 
 import 'package:activity_5/bloc/registration_bloc.dart';
+import 'package:activity_5/bloc/registration_event.dart';
 import 'package:activity_5/bloc/registration_state.dart';
 import 'package:activity_5/models/registrant_details.dart';
 import 'package:activity_5/screens/failed_screen.dart';
 import 'package:activity_5/screens/success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_ui/theme/app_theme.dart';
 import 'package:shared_ui/widgets/app_bar.dart';
 import 'package:shared_ui/widgets/section_title.dart';
 import 'package:shared_ui/widgets/info_banner.dart';
@@ -51,10 +51,18 @@ class _FormView extends StatefulWidget {
 
 class _FormViewState extends State<_FormView> {
   PersonalDetails _details = PersonalDetails.empty();
+  final _middleNameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _middleNameController.dispose();
+    super.dispose();
+  }
 
   void _updateField({
     String? firstName,
     String? middleName,
+    bool? noMiddleName,
     String? lastName,
     String? suffix,
     String? gender,
@@ -64,6 +72,7 @@ class _FormViewState extends State<_FormView> {
       _details = _details.copyWith(
         firstName: firstName,
         middleName: middleName,
+        noMiddleName: noMiddleName,
         lastName: lastName,
         suffix: suffix,
         gender: gender,
@@ -98,113 +107,112 @@ class _FormViewState extends State<_FormView> {
               // Nav + Banner
               Padding(
                 padding: EdgeInsets.all(10),
-                child: TopAppBar(label: 'Details'),
+                child: TopAppBar(
+                  label: 'Details',
+                  onPressed: () => Navigator.pop(context),
+                ),
               ),
               // Form
-              // Expanded(
-              //   child: SingleChildScrollView(
-              //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         InfoBanner(
-              //           text:
-              //               'Please complete the registration process.\n'
-              //               'All fields are required.',
-              //         ),
-              //         const SizedBox(height: 28),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InfoBanner(
+                        text:
+                            'Please complete the registration process.\n'
+                            'All fields are required.',
+                      ),
+                      const SizedBox(height: 28),
 
-              //         SectionTitle(title: 'BASIC DETAILS'),
-              //         const SizedBox(height: 14),
-              //         FormTextField(
-              //           label: 'First Name',
-              //           onChanged: (value) {
-              //             setState(() => _details.firstName = value);
-              //           },
-              //         ),
-              //         const SizedBox(height: 14),
-              //         FormTextField(
-              //           label: 'Middle Name (optional)',
-              //           enabled: !_details.noMiddleName,
-              //           controller: _middleNameController,
-              //           onChanged: (value) {
-              //             setState(() => _details.middleName = value);
-              //           },
-              //         ),
-              //         const SizedBox(height: 14),
-              //         FormCheckbox(
-              //           title: const Text('I don\'t have a middle name.'),
-              //           value: _details.noMiddleName,
-              //           onChanged: (value) {
-              //             setState(() {
-              //               _details.noMiddleName = value ?? false;
-              //               if (_details.noMiddleName) {
-              //                 _middleNameController.clear();
-              //               }
-              //             });
-              //           },
-              //         ),
-              //         const SizedBox(height: 14),
-              //         FormTextField(
-              //           label: 'Last Name',
-              //           onChanged: (value) {
-              //             setState(() => _details.lastName = value);
-              //           },
-              //         ),
-              //         const SizedBox(height: 14),
-              //         FormTextField(
-              //           label: 'Suffix (Jr. Sr. III)',
-              //           onChanged: (value) {
-              //             setState(() => _details.suffix = value);
-              //           },
-              //         ),
-              //         const SizedBox(height: 28),
-              //         //
-              //         SectionTitle(title: 'ADDITIONAL INFORMATION'),
-              //         const SizedBox(height: 14),
-              //         FormDropdownField(
-              //           label: 'Gender',
-              //           value: _details.gender,
-              //           items: _genderOptions,
-              //           onChanged: (value) {
-              //             setState(() => _details.gender = value);
-              //           },
-              //         ),
-              //         const SizedBox(height: 14),
-              //         FormDropdownField(
-              //           label: 'Nationality',
-              //           value: _details.nationality,
-              //           items: _nationalityOptions,
-              //           onChanged: (value) {
-              //             setState(() => _details.nationality = value);
-              //           },
-              //         ),
-              //         const SizedBox(height: 28),
-              //         //
-              //         Text(
-              //           'By clicking Next, you confirm that the above information is true and complete.',
-              //           style: TextStyle(color: colorScheme.outline),
-              //         ),
-              //         const SizedBox(height: 14),
-              //         FormButton(
-              //           label: 'Next',
-              //           onPressed: _details.isComplete ? _onNext : null,
-              //         ),
-              //         const SizedBox(height: 8),
+                      SectionTitle(title: 'BASIC DETAILS'),
+                      const SizedBox(height: 14),
+                      FormTextField(
+                        label: 'First Name',
+                        onChanged: (value) => _updateField(firstName: value),
+                      ),
+                      const SizedBox(height: 14),
+                      FormTextField(
+                        label: 'Middle Name (optional)',
+                        enabled: !_details.noMiddleName,
+                        controller: _middleNameController,
+                        onChanged: (value) => _updateField(middleName: value),
+                      ),
+                      const SizedBox(height: 14),
+                      FormCheckbox(
+                        title: const Text('I don\'t have a middle name.'),
+                        value: _details.noMiddleName,
+                        onChanged: (checked) {
+                          final isChecked = checked ?? false;
+                          if (isChecked) {
+                            _middleNameController.clear();
+                          }
+                          _updateField(
+                            noMiddleName: isChecked,
+                            middleName: isChecked ? '' : null,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 14),
+                      FormTextField(
+                        label: 'Last Name',
+                        onChanged: (value) => _updateField(lastName: value),
+                      ),
+                      const SizedBox(height: 14),
+                      FormTextField(
+                        label: 'Suffix (Jr. Sr. III)',
+                        onChanged: (value) => _updateField(suffix: value),
+                      ),
+                      const SizedBox(height: 28),
+                      //
+                      SectionTitle(title: 'ADDITIONAL INFORMATION'),
+                      const SizedBox(height: 14),
+                      FormDropdownField(
+                        label: 'Gender',
+                        value: _details.gender,
+                        items: genderOptions,
+                        onChanged: (value) => _updateField(gender: value),
+                      ),
+                      const SizedBox(height: 14),
+                      FormDropdownField(
+                        label: 'Nationality',
+                        value: _details.nationality,
+                        items: nationalityOptions,
+                        onChanged: (value) => _updateField(nationality: value),
+                      ),
+                      const SizedBox(height: 28),
+                      //
+                      Text(
+                        'By clicking Next, you confirm that the above information is true and complete.',
+                        style: TextStyle(color: colorScheme.outline),
+                      ),
+                      const SizedBox(height: 14),
+                      FormButton(
+                        label: 'Next',
+                        onPressed: _details.isComplete
+                            ? () {
+                                context.read<RegistrationBloc>().add(
+                                  SubmitRegistrationEvent(_details),
+                                );
+                              }
+                            : null,
+                      ),
+                      const SizedBox(height: 8),
 
-              //         Visibility(
-              //           visible: !_details.isComplete,
-              //           maintainSize: true,
-              //           maintainAnimation: true,
-              //           maintainState: true,
-              //           child: const FormReminder(
-              //             label: 'Please fill in all required fields.',
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
+                      Visibility(
+                        visible: !_details.isComplete,
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        maintainState: true,
+                        child: const FormReminder(
+                          label: 'Please fill in all required fields.',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

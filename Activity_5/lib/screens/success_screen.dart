@@ -18,11 +18,10 @@ class SuccessScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.check_circle,

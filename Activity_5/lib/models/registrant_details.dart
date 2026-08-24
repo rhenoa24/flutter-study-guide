@@ -11,18 +11,20 @@ import 'dart:convert';
 class PersonalDetails {
   final String firstName;
   final String middleName;
+  final bool noMiddleName;
   final String lastName;
-  final String suffix;
-  final String gender;
-  final String nationality;
+  final String? suffix;
+  final String? gender;
+  final String? nationality;
 
   const PersonalDetails({
     required this.firstName,
     required this.middleName,
+    this.noMiddleName = false,
     required this.lastName,
-    required this.suffix,
-    required this.gender,
-    required this.nationality,
+    this.suffix,
+    this.gender,
+    this.nationality,
   });
 
   // Initial State
@@ -30,10 +32,11 @@ class PersonalDetails {
     return const PersonalDetails(
       firstName: '',
       middleName: '',
+      noMiddleName: false,
       lastName: '',
       suffix: '',
-      gender: '',
-      nationality: '',
+      gender: null,
+      nationality: null,
     );
   }
 
@@ -41,8 +44,9 @@ class PersonalDetails {
   bool get isComplete {
     return firstName.trim().isNotEmpty &&
         lastName.trim().isNotEmpty &&
-        gender.trim().isNotEmpty &&
-        nationality.trim().isNotEmpty;
+        gender != null &&
+        nationality != null &&
+        (noMiddleName || middleName.trim().isNotEmpty);
     // I didn't count the suffix as required, despite the clear infocard in the mockup
     // because not everyone has suffixes. This would be terrible UX
   }
@@ -53,6 +57,7 @@ class PersonalDetails {
   PersonalDetails copyWith({
     String? firstName,
     String? middleName,
+    bool? noMiddleName,
     String? lastName,
     String? suffix,
     String? gender,
@@ -61,6 +66,7 @@ class PersonalDetails {
     return PersonalDetails(
       firstName: firstName ?? this.firstName,
       middleName: middleName ?? this.middleName,
+      noMiddleName: noMiddleName ?? this.noMiddleName,
       lastName: lastName ?? this.lastName,
       suffix: suffix ?? this.suffix,
       gender: gender ?? this.gender,
@@ -75,6 +81,7 @@ class PersonalDetails {
     return other is PersonalDetails &&
         other.firstName == firstName &&
         other.middleName == middleName &&
+        other.noMiddleName == noMiddleName &&
         other.lastName == lastName &&
         other.suffix == suffix &&
         other.gender == gender &&
@@ -82,8 +89,15 @@ class PersonalDetails {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(firstName, middleName, lastName, suffix, gender, nationality);
+  int get hashCode => Object.hash(
+    firstName,
+    middleName,
+    noMiddleName,
+    lastName,
+    suffix,
+    gender,
+    nationality,
+  );
 
   /// ---------------------------------------------------------------
 
@@ -96,6 +110,7 @@ class PersonalDetails {
     return {
       'firstName': firstName,
       'middleName': middleName,
+      'noMiddleName': noMiddleName,
       'lastName': lastName,
       'suffix': suffix,
       'gender': gender,
@@ -107,6 +122,7 @@ class PersonalDetails {
     return PersonalDetails(
       firstName: json['firstName'] as String? ?? '',
       middleName: json['middleName'] as String? ?? '',
+      noMiddleName: json['noMiddleName'] as bool? ?? false,
       lastName: json['lastName'] as String? ?? '',
       suffix: json['suffix'] as String? ?? '',
       gender: json['gender'] as String? ?? '',
