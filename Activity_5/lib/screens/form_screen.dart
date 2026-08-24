@@ -93,7 +93,7 @@ class _FormViewState extends State<_FormView> {
             MaterialPageRoute(builder: (_) => const SuccessScreen()),
           );
         } else if (state is RegistrationFailure) {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const FailedScreen()),
           );

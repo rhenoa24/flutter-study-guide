@@ -17,9 +17,13 @@ class FailedScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.error, size: 96, color: colorScheme.error),
+                      Icon(
+                        Icons.error,
+                        size: 96,
+                        color: colorScheme.errorContainer,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         'Registration Failed',

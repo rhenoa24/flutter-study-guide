@@ -1,4 +1,6 @@
 // BLoC responsible for persisting PersonalDetails via SharedPreferences
+import 'dart:math';
+
 import 'package:activity_5/bloc/registration_event.dart';
 import 'package:activity_5/bloc/registration_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,13 +22,17 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   ) async {
     emit(RegistrationLoading());
     try {
-      final jsonString = event.details.encode();
-      final saved = await _prefsHelper.saveSharedPreference(_key, jsonString);
+      final randomNumber = Random().nextInt(100);
 
-      if (saved) {
-        emit(RegistrationSuccess());
+      if (randomNumber.isEven) {
+        final jsonString = event.details.encode();
+        final saved = await _prefsHelper.saveSharedPreference(_key, jsonString);
+
+        if (saved) {
+          emit(RegistrationSuccess());
+        }
       } else {
-        emit(const RegistrationFailure('Could no save your details'));
+        emit(const RegistrationFailure('Could not save your details'));
       }
     } catch (e) {
       emit(RegistrationFailure('Something went wrong: $e'));
