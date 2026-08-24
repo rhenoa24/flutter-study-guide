@@ -2,19 +2,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Helper class to save and retrieve a value from SharedPreferences
 class SharedPrefsHelper {
-  static const String _key = 'saved_value';
-
   // Saves [value] to local SharedPreferences storage
   // I assume this is like how localStorage works?
-  static Future<void> saveSharedPreference(String value) async {
+  Future<bool> saveSharedPreference(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_key, value);
+    return prefs.setString(key, value);
   }
 
   // Reads the saved value, return null if nothing is saved
-  static Future<String?> readSharedPreference() async {
+  Future<String?> readSharedPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_key);
+    return prefs.getString(key);
   }
 }
 

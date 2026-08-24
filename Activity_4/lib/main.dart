@@ -48,6 +48,9 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
+  final _prefsHelper = SharedPrefsHelper();
+  static const _key = 'test_value';
+
   String? _savedValue;
 
   @override
@@ -57,14 +60,15 @@ class _TestScreenState extends State<TestScreen> {
   }
 
   Future<void> _loadValue() async {
-    final value = await SharedPrefsHelper.readSharedPreference();
+    final value = await _prefsHelper.readSharedPreference(_key);
     setState(() {
       _savedValue = value;
     });
   }
 
   Future<void> _onSavePressed() async {
-    await SharedPrefsHelper.saveSharedPreference(
+    await _prefsHelper.saveSharedPreference(
+      _key,
       'Hello! This value was saved via [SharedPreference].',
     );
     await _loadValue();
