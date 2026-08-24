@@ -9,6 +9,7 @@
 // - Integrate the bloclistener to the details screen. If success,screen jumps to success page. If not, go to failed screen (try again).
 // - Use navigator.pop for backbutton (goes back to welcome)
 
+import 'package:activity_5/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_ui/theme/app_theme.dart';
 
@@ -22,10 +23,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Activity 3',
+      title: 'Activity 5',
       theme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      // home: const HomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

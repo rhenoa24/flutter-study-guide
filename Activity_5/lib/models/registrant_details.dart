@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 // Reused the data model from Activity_3
 // extended with fromJson/toJson so it can persist as a String
 // via SharedPreferences (Activity_4)
