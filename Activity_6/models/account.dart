@@ -59,7 +59,7 @@ class Account {
   @override
   int get hashCode => Object.hash(
     accountNumber,
-    accountNumber,
+    accountName,
     accountType,
     currency,
     balance,
@@ -88,8 +88,8 @@ Account(
       accountName: json['accountName'],
       accountType: json['accountType'],
       currency: json['currency'],
-      balance: json['balance'],
-      availableBalance: json['availableBalance'],
+      balance: (json['balance'] as num).toDouble(),
+      availableBalance: (json['availableBalance'] as num).toDouble(),
       status: json['status'],
       openedDate: json['openedDate'],
     );

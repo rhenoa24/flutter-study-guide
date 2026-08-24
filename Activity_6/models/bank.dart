@@ -28,6 +28,9 @@ class Bank {
   }
 
   @override
+  int get hashCode => Object.hash(bankName, branch, branchCode);
+
+  @override
   String toString() {
     return '''
 Bank(
