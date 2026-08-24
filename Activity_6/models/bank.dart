@@ -29,10 +29,10 @@ class Bank {
 
   @override
   String toString() {
-    return 'Bank('
-        'bankName: $bankName'
-        'branch: $branch'
-        'branchCode: $branchCode'
-        ')';
+    return '''
+Bank(
+          bankName: $bankName
+          branch: $branch
+          branchCode: $branchCode)''';
   }
 }

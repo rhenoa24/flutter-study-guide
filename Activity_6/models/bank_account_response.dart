@@ -46,11 +46,16 @@ class BankAccountResponse {
 
   @override
   String toString() {
-    return 'BankAccountResponse('
-        'account: $account'
-        'bank: $bank'
-        'customer: $customer'
-        'features: $features'
-        ')';
+    return '''
+BankAccountResponse(
+
+account: $account
+
+bank: $bank
+
+customer: $customer
+
+features: $features
+)''';
   }
 }

@@ -41,11 +41,11 @@ class Customer {
 
   @override
   String toString() {
-    return 'Customer('
-        'customerId: $customerId'
-        'firstName: $firstName'
-        'middleName: $middleName'
-        'lastName: $lastName'
-        ')';
+    return '''
+Customer(
+          customerId: $customerId
+          firstName: $firstName
+          middleName: $middleName
+          lastName: $lastName)''';
   }
 }

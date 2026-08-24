@@ -70,15 +70,15 @@ class Account {
 
   @override
   String toString() {
-    return 'Account('
-        'accountNumber: $accountNumber'
-        'accountName: $accountName'
-        'accountType: $accountType'
-        'currency: $currency'
-        'balance: $balance'
-        'availableBalance: $availableBalance'
-        'status: $status'
-        'openedDate: $openedDate'
-        ')';
+    return '''
+Account(
+          accountNumber: $accountNumber
+          accountName: $accountName
+          accountType: $accountType
+          currency: $currency
+          balance: $balance
+          availableBalance: $availableBalance
+          status: $status
+          openedDate: $openedDate)''';
   }
 }

@@ -42,11 +42,11 @@ class Features {
 
   @override
   String toString() {
-    return 'Features('
-        'onlineBanking: $onlineBanking'
-        'mobileBanking: $mobileBanking'
-        'cashIn: $cashIn'
-        'cashOut: $cashOut'
-        ')';
+    return '''
+Features(
+          onlineBanking: $onlineBanking
+          mobileBanking: $mobileBanking
+          cashIn: $cashIn
+          cashOut: $cashOut)''';
   }
 }
