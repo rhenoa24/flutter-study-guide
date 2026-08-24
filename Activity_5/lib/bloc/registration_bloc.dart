@@ -24,11 +24,14 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     try {
       final randomNumber = Random().nextInt(100);
 
+      print('RNG: $randomNumber');
+
       if (randomNumber.isEven) {
         final jsonString = event.details.encode();
         final saved = await _prefsHelper.saveSharedPreference(_key, jsonString);
 
         if (saved) {
+          print('Saved details: $jsonString');
           emit(RegistrationSuccess());
         }
       } else {
