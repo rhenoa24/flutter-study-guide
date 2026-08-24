@@ -58,4 +58,22 @@ customer: $customer
 features: $features
 )''';
   }
+
+  factory BankAccountResponse.fromJson(Map<String, dynamic> json) {
+    return BankAccountResponse(
+      account: Account.fromJson(json['account']),
+      bank: Bank.fromJson(json['bank']),
+      customer: Customer.fromJson(json['customer']),
+      features: Features.fromJson(json['features']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'account': account.toJson(),
+      'bank': bank.toJson(),
+      'customer': customer.toJson(),
+      'features': features.toJson(),
+    };
+  }
 }

@@ -49,4 +49,22 @@ Features(
           cashIn: $cashIn
           cashOut: $cashOut)''';
   }
+
+  factory Features.fromJson(Map<String, dynamic> json) {
+    return Features(
+      onlineBanking: json['onlineBanking'],
+      mobileBanking: json['mobileBanking'],
+      cashIn: json['cashIn'],
+      cashOut: json['cashOut'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'onlineBanking': onlineBanking,
+      'mobileBanking': mobileBanking,
+      'cashIn': cashIn,
+      'cashOut': cashOut,
+    };
+  }
 }

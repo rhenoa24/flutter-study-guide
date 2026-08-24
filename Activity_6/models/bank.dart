@@ -35,4 +35,16 @@ Bank(
           branch: $branch
           branchCode: $branchCode)''';
   }
+
+  factory Bank.fromJson(Map<String, dynamic> json) {
+    return Bank(
+      bankName: json['bankName'],
+      branch: json['branch'],
+      branchCode: json['branchCode'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'bankName': bankName, 'branch': branch, 'branchCode': branchCode};
+  }
 }

@@ -81,4 +81,30 @@ Account(
           status: $status
           openedDate: $openedDate)''';
   }
+
+  factory Account.fromJson(Map<String, dynamic> json) {
+    return Account(
+      accountNumber: json['accountNumber'],
+      accountName: json['accountName'],
+      accountType: json['accountType'],
+      currency: json['currency'],
+      balance: json['balance'],
+      availableBalance: json['availableBalance'],
+      status: json['status'],
+      openedDate: json['openedDate'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'accountNumber': accountNumber,
+      'accountName': accountName,
+      'accountType': accountType,
+      'currency': currency,
+      'balance': balance,
+      'availableBalance': availableBalance,
+      'status': status,
+      'openedDate': openedDate,
+    };
+  }
 }

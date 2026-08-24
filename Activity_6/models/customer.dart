@@ -48,4 +48,22 @@ Customer(
           middleName: $middleName
           lastName: $lastName)''';
   }
+
+  factory Customer.fromJson(Map<String, dynamic> json) {
+    return Customer(
+      customerId: json['customerId'],
+      firstName: json['firstName'],
+      middleName: json['middleName'],
+      lastName: json['lastName'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'customerId': customerId,
+      'firstName': firstName,
+      'middleName': middleName,
+      'lastName': lastName,
+    };
+  }
 }
