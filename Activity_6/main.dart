@@ -30,11 +30,11 @@
 //   }
 // }
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'models/account.dart';
-import 'models/bank.dart';
 import 'models/bank_account_response.dart';
-import 'models/customer.dart';
-import 'models/features.dart';
 
 void printBankAccount(BankAccountResponse response) {
   print(response.toString());
@@ -50,51 +50,33 @@ void main() {
 Submitted by: Alyssa Rhenoa Nicole Bautista
 ''');
 
-  final account = Account(
-    accountNumber: '000123456789',
-    accountName: 'Juan Dela Cruz',
-    accountType: 'Savings',
-    currency: 'PHP',
-    balance: 10000.0,
-    availableBalance: 9500.0,
-    status: 'Active',
-    openedDate: '2025-01-15',
-  );
+  // Read JSON file
+  final file = File('data/account_response.json');
+  final jsonString = file.readAsStringSync();
 
-  final bank = Bank(
-    bankName: 'Sample Bank',
-    branch: 'Main Branch',
-    branchCode: '0001',
-  );
+  // Convert JSON String to Map
+  final Map<String, dynamic> jsonData = jsonDecode(jsonString);
 
-  final customer = Customer(
-    customerId: 'CUST-00123',
-    firstName: 'Juan',
-    middleName: 'Santos',
-    lastName: 'Dela Cruz',
-  );
-
-  final features = Features(
-    onlineBanking: true,
-    mobileBanking: true,
-    cashIn: true,
-    cashOut: true,
-  );
-
-  final bankAccount = BankAccountResponse(
-    account: account,
-    bank: bank,
-    customer: customer,
-    features: features,
-  );
+  // Convert JSON Map into the data model
+  final bankAccount = BankAccountResponse.fromJson(jsonData);
 
   print('''
 
 ===========================================
-# Bank Account Response:
+# Deserialized JSON:
 ''');
 
   printBankAccount(bankAccount);
+
+  // Convert model back into JSON
+  final Map<String, dynamic> outputJson = bankAccount.toJson();
+
+  print('''
+
+===========================================
+# Serialized JSON:
+''');
+  print(jsonEncode(outputJson));
 
   // Comparing models
   final sameAccount = Account(
@@ -114,14 +96,14 @@ Submitted by: Alyssa Rhenoa Nicole Bautista
 # Comparing models:
 ''');
 
-  print('Account == Same Account: ${account == sameAccount}');
+  print('Account == Same Account: ${bankAccount.account == sameAccount}');
   print(
     'Account hashCode == Same Account hashCode: '
-    '${account.hashCode == sameAccount.hashCode}',
+    '${bankAccount.account.hashCode == sameAccount.hashCode}',
   );
 
   // copyWith
-  final updatedAccount = account.copyWith(balance: 15000.0);
+  final updatedAccount = bankAccount.account.copyWith(balance: 15000.0);
 
   print('''
 
@@ -129,7 +111,7 @@ Submitted by: Alyssa Rhenoa Nicole Bautista
 # Using the copyWith function:
 ''');
 
-  print('Before: $account');
+  print('Before: ${bankAccount.account}');
   print('After: $updatedAccount');
 
   // Update root model

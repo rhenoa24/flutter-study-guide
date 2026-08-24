@@ -1,0 +1,29 @@
+{
+  "account": {
+    "accountNumber": "000123456789",
+    "accountName": "Juan Dela Cruz",
+    "accountType": "Savings",
+    "currency": "PHP",
+    "balance": 10000.0,
+    "availableBalance": 9500.0,
+    "status": "Active",
+    "openedDate": "2025-01-15"
+  },
+  "bank": {
+    "bankName": "Sample Bank",
+    "branch": "Main Branch",
+    "branchCode": "0001"
+  },
+  "customer": {
+    "customerId": "CUST-00123",
+    "firstName": "Juan",
+    "middleName": "Santos",
+    "lastName": "Dela Cruz"
+  },
+  "features": {
+    "onlineBanking": true,
+    "mobileBanking": true,
+    "cashIn": true,
+    "cashOut": true
+  }
+}
