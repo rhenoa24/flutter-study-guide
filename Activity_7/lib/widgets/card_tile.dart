@@ -14,7 +14,7 @@ class CardListTile extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       leading: SizedBox(
-        width: 48,
+        width: 59,
         height: 64,
         child: thumbnailUrl == null
             ? const Icon(Icons.image_not_supported)
@@ -22,7 +22,8 @@ class CardListTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
                 child: Image.network(
                   thumbnailUrl,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
                   errorBuilder: (context, error, StackTrace) =>
                       const Icon(Icons.broken_image),
                 ),

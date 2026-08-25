@@ -68,6 +68,7 @@ class _CardSearchScreenState extends State<CardSearchScreen> {
 
                   final cards = (state as CardSearchLoaded).cards;
                   return ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 12),
                     itemCount: cards.length,
                     itemBuilder: (context, index) {
                       final card = cards[index];

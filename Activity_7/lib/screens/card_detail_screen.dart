@@ -34,12 +34,22 @@ class CardDetailScreen extends StatelessWidget {
                   children: [
                     // Image
                     if (imageUrl != null)
-                      Center(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(imageUrl),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: colorScheme.primaryContainer,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(22),
+                        ),
+                        child: Center(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(22),
+                            child: Image.network(imageUrl),
+                          ),
                         ),
                       ),
+
                     const SizedBox(height: 16),
 
                     Row(
@@ -104,6 +114,8 @@ class CardDetailScreen extends StatelessWidget {
                       'Rarity: ${card.rarity}',
                       style: TextStyle(color: colorScheme.outline),
                     ),
+
+                    const SizedBox(height: 12),
                   ],
                 ),
               ),
