@@ -42,36 +42,68 @@ class CardDetailScreen extends StatelessWidget {
                       ),
                     const SizedBox(height: 16),
 
-                    // Card Name
-                    Text(card.name),
-
-                    // Mana Cost
-                    if (card.manaCost != null) ...[
-                      const SizedBox(height: 4),
-                      Text(card.manaCost!),
-                    ],
-                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        // Card Name
+                        Text(
+                          card.name,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Spacer(),
+                        // Mana Cost
+                        if (card.manaCost != null) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            card.manaCost!,
+                            style: TextStyle(
+                              color: colorScheme.primaryContainer,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
 
                     // Type Line
-                    Text(
-                      card.typeLine,
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    ),
+                    Text(card.typeLine, style: TextStyle()),
                     const SizedBox(height: 12),
 
-                    // Oracle Text
-                    if (card.oracleText != null) Text(card.oracleText!),
+                    if (card.oracleText != null)
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            top: BorderSide(
+                              color: colorScheme.primaryContainer,
+                              width: 1,
+                            ),
+                            bottom: BorderSide(
+                              color: colorScheme.primaryContainer,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: Text(card.oracleText!),
+                        ),
+                      ),
+
+                    const SizedBox(height: 12),
 
                     // Card Power
                     if (card.power != null && card.toughness != null)
                       Text('Power/Toughness: ${card.power}/${card.toughness}'),
-                    const SizedBox(height: 8),
 
                     // Set
-                    Text('Set: ${card.setName}'),
+                    Text(
+                      'Set: ${card.setName}',
+                      style: TextStyle(color: colorScheme.outline),
+                    ),
 
                     // Rarity
-                    Text('Rarity: ${card.rarity}'),
+                    Text(
+                      'Rarity: ${card.rarity}',
+                      style: TextStyle(color: colorScheme.outline),
+                    ),
                   ],
                 ),
               ),
