@@ -193,3 +193,26 @@ Additional thoughts:
 
 - Add fromJson and toJson functions for serializing and deserializing json data.
 - Use https://jsoneditoronline.org to easily view the JSON structure above
+
+## Post Activity Insights
+
+- To understand JSON format and why we use it
+- What, why and where we to use JSON serialization and deserialization
+
+## 🎯 Activity 7
+
+- Visit https://scryfall.com/docs/api/cards/search, use the following apis to display list and display of card details. https://api.scryfall.com/cards/search?order=name&q=robot
+- This API returns list of cards and their images.
+- Use http package to call these API
+- Create a model for the json response
+- Create a search form where you can type keywords. Soft Keyboard’s “go” “search” “ok”, etc should trigger search bloc event.
+- Create your own widget to list cards, make sure to make it reusable
+- Use bloc listener to display the list of cards and if empty.
+- Upon clicking on item from the list, display detailed view of the card details
+- Utilize bloc class, events and state.
+- Expected to have 2 screens. (main list screen & details screen)
+
+
+
+
+
