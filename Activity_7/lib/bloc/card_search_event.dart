@@ -5,9 +5,9 @@ abstract class CardSearchEvent {
   List<Object?> get props => [];
 }
 
-class SearchCardsEvents extends CardSearchEvent {
+class SearchCardEvents extends CardSearchEvent {
   final String query;
-  const SearchCardsEvents(this.query);
+  const SearchCardEvents(this.query);
 
   @override
   List<Object?> get props => [query];

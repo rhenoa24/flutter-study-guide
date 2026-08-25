@@ -17,3 +17,4 @@ export 'widgets/form_dropdown.dart';
 export 'widgets/form_button.dart';
 export 'widgets/form_reminder.dart';
 export 'widgets/form_checkbox.dart';
+export 'widgets/search_input.dart';

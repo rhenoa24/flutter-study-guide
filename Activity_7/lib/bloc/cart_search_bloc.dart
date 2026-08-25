@@ -7,11 +7,11 @@ class CardSearchBloc extends Bloc<CardSearchEvent, CardSearchState> {
   final ScryfallRepository repository;
 
   CardSearchBloc({required this.repository}) : super(CardSearchInitial()) {
-    on<SearchCardsEvents>(_onSearchCards);
+    on<SearchCardEvents>(_onSearchCards);
   }
 
   Future<void> _onSearchCards(
-    SearchCardsEvents event,
+    SearchCardEvents event,
     Emitter<CardSearchState> emit,
   ) async {
     final query = event.query.trim();
