@@ -79,6 +79,7 @@ class CardDetailScreen extends StatelessWidget {
 
                     if (card.oracleText != null)
                       Container(
+                        width: double.infinity,
                         decoration: BoxDecoration(
                           border: Border(
                             top: BorderSide(
