@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_ui/shared_ui.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen();
+  const SuccessScreen({super.key});
 
   void _backToHome(BuildContext context) {
     Navigator.of(context).popUntil((route) => route.isFirst);

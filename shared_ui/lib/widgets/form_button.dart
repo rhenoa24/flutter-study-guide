@@ -4,7 +4,7 @@ class FormButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
 
-  const FormButton({required this.label, this.onPressed});
+  const FormButton({super.key, required this.label, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

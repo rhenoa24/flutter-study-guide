@@ -2,7 +2,6 @@ import 'package:activity_7/bloc/cart_search_bloc.dart';
 import 'package:activity_7/repository/scryfall_repository.dart';
 import 'package:activity_7/screens/card_search_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_ui/theme/app_theme.dart';
 
