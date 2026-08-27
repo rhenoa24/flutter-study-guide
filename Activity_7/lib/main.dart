@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         create: (context) =>
             CardSearchBloc(repository: context.read<ScryfallRepository>()),
         child: MaterialApp(
-          title: 'Activity 7',
+          title: 'Activity 7A',
           theme: AppTheme.darkTheme,
           debugShowCheckedModeBanner: false,
           home: const CardSearchScreen(),
