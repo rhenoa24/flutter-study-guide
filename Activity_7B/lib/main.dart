@@ -1,5 +1,6 @@
 import 'package:activity_7b/bloc/card_list/cart_list_bloc.dart';
 import 'package:activity_7b/repository/poke_repository.dart';
+import 'package:activity_7b/screens/card_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_ui/theme/app_theme.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           title: 'Activity 7B',
           theme: AppTheme.darkTheme,
           debugShowCheckedModeBanner: false,
-          // home: const CardListScreen(),
+          home: const CardListScreen(),
         ),
       ),
     );

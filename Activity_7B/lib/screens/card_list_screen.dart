@@ -45,50 +45,53 @@ class _CardListScreenState extends State<CardListScreen> {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(title: const Text('Pokédex')),
-      body: BlocBuilder<CardListBloc, CardListState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
 
-          if (state.errorMessage != null && state.items.isEmpty) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Text('Something went wrong: ${state.errorMessage}'),
-              ),
-            );
-          }
+      body: SafeArea(
+        child: BlocBuilder<CardListBloc, CardListState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          return ListView.builder(
-            controller: _scrollController,
-            padding: const EdgeInsets.only(bottom: 12),
-            itemCount: state.items.length + (state.hasMore ? 1 : 0),
-            itemBuilder: (context, index) {
-              if (index >= state.items.length) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Center(child: CircularProgressIndicator()),
-                );
-              }
-
-              final pokemon = state.items[index];
-              return CardListTile(
-                id: pokemon.id,
-                name: pokemon.name,
-                imageUrl: pokemon.thumbnailUrl,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => CardDetailScreen(name: pokemon.name),
-                    ),
-                  );
-                },
+            if (state.errorMessage != null && state.items.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Text('Something went wrong: ${state.errorMessage}'),
+                ),
               );
-            },
-          );
-        },
+            }
+
+            return ListView.builder(
+              controller: _scrollController,
+              padding: const EdgeInsets.only(bottom: 12),
+              itemCount: state.items.length + (state.hasMore ? 1 : 0),
+              itemBuilder: (context, index) {
+                if (index >= state.items.length) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                }
+
+                final pokemon = state.items[index];
+                return CardListTile(
+                  id: pokemon.id,
+                  name: pokemon.name,
+                  imageUrl: pokemon.thumbnailUrl,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => CardDetailScreen(name: pokemon.name),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

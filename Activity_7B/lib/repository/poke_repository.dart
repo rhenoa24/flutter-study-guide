@@ -18,7 +18,7 @@ class PokeRepository {
     int limit = 10,
     int offset = 0,
   }) async {
-    final uri = Uri.parse('$_baseUrl/Card?limit=$limit&offset=$offset');
+    final uri = Uri.parse('$_baseUrl/pokemon?limit=$limit&offset=$offset');
 
     final response = await http.get(uri);
 
@@ -27,11 +27,11 @@ class PokeRepository {
       return PokemonListResponse.fromJson(jsonBody);
     }
 
-    throw PokeApiException('Failed to load Card (${response.statusCode})');
+    throw PokeApiException('Failed to load pokemon (${response.statusCode})');
   }
 
   Future<PokemonDetail> fetchCardDetail(String nameOrId) async {
-    final uri = Uri.parse('$_baseUrl/Card/$nameOrId');
+    final uri = Uri.parse('$_baseUrl/pokemon/$nameOrId');
 
     final response = await http.get(uri);
 
@@ -41,11 +41,11 @@ class PokeRepository {
     }
 
     if (response.statusCode == 404) {
-      throw PokeApiException('Card "$nameOrId" not found');
+      throw PokeApiException('Pokemon "$nameOrId" not found');
     }
 
     throw PokeApiException(
-      'Failed to load Card detail (${response.statusCode})',
+      'Failed to load pokemon detail (${response.statusCode})',
     );
   }
 }
