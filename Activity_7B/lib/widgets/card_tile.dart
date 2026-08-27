@@ -51,7 +51,10 @@ class CardListTile extends StatelessWidget {
       ),
       trailing: Text(
         _formattedId,
-        style: TextStyle(color: colorScheme.outline),
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: colorScheme.primaryContainer,
+        ),
       ),
     );
   }
