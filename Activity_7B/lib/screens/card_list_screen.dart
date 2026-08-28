@@ -47,6 +47,29 @@ class _CardListScreenState extends State<CardListScreen> {
   void _onSearchChanged() {
     setState(() {
       _searchQuery = _searchController.text.trim().toLowerCase();
+      _maybeAutoLoad(context.read<CardListBloc>().state);
+    });
+  }
+
+  void _maybeAutoLoad(CardListState state) {
+    if (state.isLoading || state.isLoadingMore || !state.hasMore) return;
+
+    if (_searchQuery.isNotEmpty) {
+      final hasMatch = state.items.any(
+        (p) => p.name.toLowerCase().contains(_searchQuery),
+      );
+
+      if (!hasMatch) {
+        context.read<CardListBloc>().add(const LoadMoreCard());
+      }
+      return;
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_scrollController.hasClients) return;
+      if (_scrollController.position.maxScrollExtent <= 0) {
+        context.read<CardListBloc>().add(const LoadMoreCard());
+      }
     });
   }
 
@@ -79,7 +102,8 @@ class _CardListScreenState extends State<CardListScreen> {
             ),
             // Body
             Expanded(
-              child: BlocBuilder<CardListBloc, CardListState>(
+              child: BlocConsumer<CardListBloc, CardListState>(
+                listener: (context, state) => _maybeAutoLoad(state),
                 builder: (context, state) {
                   if (state.isLoading) {
                     return const _LoadingView();
@@ -177,9 +201,8 @@ class _FilteredCardList extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Text(
-            hasMoreLoad
-                ? 'No matches yet - keep scrolling to load more pokemon.'
-                : 'No matches found.',
+            // hasMoreLoad ? 'No matches yet - keep scrolling to load more pokemon.' :
+            'No matches found.',
             textAlign: TextAlign.center,
           ),
         ),
