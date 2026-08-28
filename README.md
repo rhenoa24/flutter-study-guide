@@ -199,19 +199,29 @@ Additional thoughts:
 - To understand JSON format and why we use it
 - What, why and where we to use JSON serialization and deserialization
 
-## 🎯 Activity 7
-
+## 🎯 Activity 7 (Option A)
 - Visit https://scryfall.com/docs/api/cards/search, use the following apis to display list and display of card details. https://api.scryfall.com/cards/search?order=name&q=robot
 - This API returns list of cards and their images.
 - Use http package to call these API
 - Create a model for the json response
 - Create a search form where you can type keywords. Soft Keyboard’s “go” “search” “ok”, etc should trigger search bloc event.
-- Create your own widget to list cards, make sure to make it reusable
-- Use bloc listener to display the list of cards and if empty.
+- Create your own widget to list cards (name, images, and other relevant data), make sure to make it reusable
+- Use bloc listener to display the list of cards or if they are empty.
 - Upon clicking on item from the list, display detailed view of the card details
 - Utilize bloc class, events and state.
 - Expected to have 2 screens. (main list screen & details screen)
+- Test: If i enter the keyword “code”, cards with code in the name should be displayed on a list. Tapping an item will display the card details
 
+## 🎯 Activity 7 (Option B)
+- Visit https://pokeapi.co, use the following two apis to display list and display pokemon details. For list use: https://pokeapi.co/api/v2/pokemon?limit=10&offset=0
+- For details use https://pokeapi.co/api/v2/pokemon/ditto
+- Use http package to call these API
+- Create a model for the json response
+- Create your own widget to list pokemon, make sure to make it reusable. Use an infinite scrolling concept to append list of pokemons per end of scrolling. Adjust the offset parameter accordingly to the requirements.
+- Upon clicking on item from the list, display detailed view of the pokemon
+- Utilize bloc class, events and state.
+- Expected to have 2 screens. (main list screen & details screen)
+- Test: Should initially display 10 pokemon from the list. Upon scrolling another 10 will be added. Tapping an item from the list displays detailed view
 
 
 
