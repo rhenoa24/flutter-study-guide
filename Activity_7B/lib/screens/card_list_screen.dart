@@ -5,6 +5,7 @@ import 'package:activity_7b/screens/card_detail_screen.dart';
 import 'package:activity_7b/widgets/card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_ui/widgets/search_input.dart';
 
 class CardListScreen extends StatefulWidget {
   const CardListScreen({super.key});
@@ -15,6 +16,8 @@ class CardListScreen extends StatefulWidget {
 
 class _CardListScreenState extends State<CardListScreen> {
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -22,12 +25,15 @@ class _CardListScreenState extends State<CardListScreen> {
     context.read<CardListBloc>().add(const FetchCardList());
 
     _scrollController.addListener(_onScroll);
+    _searchController.addListener(_onSearchChanged);
   }
 
   @override
   void dispose() {
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -36,6 +42,12 @@ class _CardListScreenState extends State<CardListScreen> {
     if (_scrollController.position.pixels >= threshold) {
       context.read<CardListBloc>().add(const LoadMoreCard());
     }
+  }
+
+  void _onSearchChanged() {
+    setState(() {
+      _searchQuery = _searchController.text.trim().toLowerCase();
+    });
   }
 
   void _openDetail(BuildContext context, String name) {
@@ -51,24 +63,56 @@ class _CardListScreenState extends State<CardListScreen> {
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-      appBar: AppBar(title: const Text('Pokédex')),
+      // appBar: AppBar(title: const Text('Pokédex')),
       body: SafeArea(
-        child: BlocBuilder<CardListBloc, CardListState>(
-          builder: (context, state) {
-            if (state.isLoading) {
-              return const _LoadingView();
-            }
+        child: Column(
+          children: [
+            // Nav
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: SearchInput(
+                controller: _searchController,
+                textInputAction: TextInputAction.search,
+                hintText: 'Search for a Pokémon (e.g. Ditto)',
+                onSubmitted: (_) => _onSearchChanged,
+              ),
+            ),
+            // Body
+            Expanded(
+              child: BlocBuilder<CardListBloc, CardListState>(
+                builder: (context, state) {
+                  if (state.isLoading) {
+                    return const _LoadingView();
+                  }
 
-            if (state.errorMessage != null && state.items.isEmpty) {
-              return _ErrorView(message: state.errorMessage!);
-            }
+                  if (state.errorMessage != null && state.items.isEmpty) {
+                    return _ErrorView(message: state.errorMessage!);
+                  }
 
-            return _CardList(
-              state: state,
-              scrollController: _scrollController,
-              onCardTap: (name) => _openDetail(context, name),
-            );
-          },
+                  if (_searchQuery.isNotEmpty) {
+                    final matches = state.items
+                        .where(
+                          (p) => p.name.toLowerCase().contains(_searchQuery),
+                        )
+                        .toList();
+
+                    return _FilteredCardList(
+                      items: matches,
+                      hasMoreLoad: state.hasMore,
+                      scrollController: _scrollController,
+                      onCardTap: (name) => _openDetail(context, name),
+                    );
+                  }
+
+                  return _CardList(
+                    state: state,
+                    scrollController: _scrollController,
+                    onCardTap: (name) => _openDetail(context, name),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -102,6 +146,52 @@ class _CardList extends StatelessWidget {
         }
 
         final pokemon = state.items[index];
+        return CardListTile(
+          id: pokemon.id,
+          name: pokemon.name,
+          imageUrl: pokemon.thumbnailUrl,
+          onTap: () => onCardTap(pokemon.name),
+        );
+      },
+    );
+  }
+}
+
+class _FilteredCardList extends StatelessWidget {
+  final List<dynamic> items;
+  final bool hasMoreLoad;
+  final ScrollController scrollController;
+  final ValueChanged<String> onCardTap;
+
+  const _FilteredCardList({
+    required this.items,
+    required this.hasMoreLoad,
+    required this.scrollController,
+    required this.onCardTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (items.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(
+            hasMoreLoad
+                ? 'No matches yet - keep scrolling to load more pokemon.'
+                : 'No matches found.',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+
+    return ListView.builder(
+      controller: scrollController,
+      padding: const EdgeInsets.only(bottom: 12),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final pokemon = items[index];
         return CardListTile(
           id: pokemon.id,
           name: pokemon.name,
