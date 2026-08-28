@@ -3,12 +3,13 @@ import 'dart:math';
 
 import 'package:activity_5/bloc/registration_event.dart';
 import 'package:activity_5/bloc/registration_state.dart';
+import 'package:activity_5/constants/storage_keys.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_ui/helpers/shared_prefs_helper.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   final SharedPrefsHelper _prefsHelper;
-  static const String _key = 'personal_details';
+  static const String _key = StorageKeys.personalDetails;
 
   RegistrationBloc({SharedPrefsHelper? prefsHelper})
     : _prefsHelper = prefsHelper ?? SharedPrefsHelper(),

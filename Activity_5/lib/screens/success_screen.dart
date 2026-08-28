@@ -1,8 +1,32 @@
+import 'package:activity_5/constants/storage_keys.dart';
+import 'package:activity_5/models/registrant_details.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_ui/shared_ui.dart';
 
-class SuccessScreen extends StatelessWidget {
+class SuccessScreen extends StatefulWidget {
   const SuccessScreen({super.key});
+  @override
+  State<SuccessScreen> createState() => _SuccessScreenState();
+}
+
+class _SuccessScreenState extends State<SuccessScreen> {
+  final _prefsHelper = SharedPrefsHelper();
+  PersonalDetails? _details;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDetails();
+  }
+
+  Future<void> _loadDetails() async {
+    final storedJson = await _prefsHelper.readSharedPreference(
+      StorageKeys.personalDetails,
+    );
+    if (storedJson != null) {
+      setState(() => _details = PersonalDetails.decode(storedJson));
+    }
+  }
 
   void _backToHome(BuildContext context) {
     Navigator.of(context).popUntil((route) => route.isFirst);
@@ -45,6 +69,15 @@ class SuccessScreen extends StatelessWidget {
                           color: colorScheme.outline,
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      if (_details != null)
+                        Text(
+                          _details.toString(),
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: colorScheme.inversePrimary,
+                          ),
+                        ),
                     ],
                   ),
                 ),
