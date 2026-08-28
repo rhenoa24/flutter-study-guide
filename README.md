@@ -135,7 +135,7 @@ Additional thoughts:
 - Create bloc class, bloc event and bloc state for storing details using sharedpreferences. Utilize the helper function you created in activity 4.
 - Refactor the next button. Pass the datamodel to bloc event when button is pressed.
 - In your bloc class, use int randomizer, if the number is even call the sharedpreferences and save the data then emit success. If the number is odd, emit failure.
-- Integrate the bloclistener to the details screen. If success,screen jumps to success page. If not, go to failed screen (try again).
+- Integrate the bloclistener to the details screen. If success,screen jumps to success page (display the saved value from the sharedPreference). If not, go to failed screen (try again). 
 - Use navigator.pop for backbutton (goes back to welcome)
 
 <p align="center">
