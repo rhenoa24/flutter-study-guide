@@ -34,6 +34,13 @@ Practice basic dart syntax:
 8. In your void main after iteration block, compare index 1 and index 2. Index 3 to index 5. Index 4 to index 4. (this is to test hashcode)
 9. Use copyWith function to modify the int value. Print the results after. (for testing copyWith)
 
+**Post Activity Insights**
+- Should be able to create basic models
+- Understand loops and iterations
+- Use if statements or conditional statements
+- Log output via print method
+- Understand dart classes and functions
+
 ---
 
 ## What is a Widget?
@@ -60,6 +67,12 @@ Guidelines:
   <img src="screenshots/activity_2.png" height="400" width="220" />
 </p>
 
+**Post Activity Insights**
+- Familiarization of basic widgets usage (what, when and how to use them)
+- Understand how to layout screens using a reference image
+- To be systematic in creating reusable widgets instead of hardcoding them
+- To edit widget properties based on what is needed
+
 ---
 
 ## What is State Management?
@@ -82,6 +95,12 @@ Create a basic form.
 <p align="center">
   <img src="screenshots/activity_3.png" height="400" width="220" />
 </p>
+
+**Post Activity Insights**
+- Familiarization of forms, textfields and dropdown widgets
+- Usage of Stateful widget, setState function
+- Using conditional statements to control button enablement
+- Utilization of data models for cleaner code logic
 
 ---
 
@@ -118,6 +137,9 @@ Additional thoughts:
 - Close and Rereun the application. Value must persist.
 - Uninstall and reinstall the application. Value should be empty again.
 
+**Post Activity Insights**
+- To understand sharedPreferences: how, why and where to use it
+- Familiarization in creating reusable helper functions
 ---
 
 ## Navigation and Routing
@@ -145,6 +167,14 @@ Additional thoughts:
   <img src="screenshots/activity_5C.png" height="400" width="220" />
   <img src="screenshots/activity_5D.png" height="400" width="220" />
 </p>
+
+**Post Activity Insights**
+- To understand screen navigation and routing
+- Using BLOC as state management
+- Using BLOC classes to access helper function
+- Using BLOC listener to access BLOC states
+- Invoking of BLOC events via .add function
+- Basic code refactoring
 
 ---
 
@@ -194,7 +224,7 @@ Additional thoughts:
 - Add fromJson and toJson functions for serializing and deserializing json data.
 - Use https://jsoneditoronline.org to easily view the JSON structure above
 
-## Post Activity Insights
+**Post Activity Insights**
 
 - To understand JSON format and why we use it
 - What, why and where we to use JSON serialization and deserialization
