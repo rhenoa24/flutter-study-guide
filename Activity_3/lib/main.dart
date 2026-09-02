@@ -12,7 +12,7 @@
 
 import 'package:activity_3/screens/form_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_ui/theme/app_theme.dart';
+import 'package:shared_core/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());

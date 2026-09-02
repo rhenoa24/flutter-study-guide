@@ -1,7 +1,7 @@
 // Action Buttons - Services
 
 import 'package:flutter/material.dart';
-import 'package:shared_ui/widgets/action_tile.dart';
+import 'package:shared_core/widgets/action_tile.dart';
 
 class ServicesGrid extends StatelessWidget {
   const ServicesGrid({super.key});

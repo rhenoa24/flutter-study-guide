@@ -5,7 +5,7 @@ import 'package:activity_7/screens/card_detail_screen.dart';
 import 'package:activity_7/widgets/card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_ui/shared_ui.dart';
+import 'package:shared_core/shared_core.dart';
 
 class CardSearchScreen extends StatefulWidget {
   const CardSearchScreen({super.key});

@@ -1,6 +1,6 @@
 import 'package:activity_7/models/mtg_card.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_ui/widgets/app_bar.dart';
+import 'package:shared_core/widgets/app_bar.dart';
 
 class CardDetailScreen extends StatelessWidget {
   final MtgCard card;

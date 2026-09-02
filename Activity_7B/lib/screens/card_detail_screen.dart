@@ -5,7 +5,7 @@ import 'package:activity_7b/models/poke_card.dart';
 import 'package:activity_7b/repository/poke_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_ui/widgets/app_bar.dart';
+import 'package:shared_core/widgets/app_bar.dart';
 
 class CardDetailScreen extends StatelessWidget {
   final String name;

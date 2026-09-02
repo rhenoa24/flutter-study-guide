@@ -5,7 +5,7 @@ import 'package:activity_7b/screens/card_detail_screen.dart';
 import 'package:activity_7b/widgets/card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_ui/widgets/search_input.dart';
+import 'package:shared_core/widgets/search_input.dart';
 
 class CardListScreen extends StatefulWidget {
   const CardListScreen({super.key});

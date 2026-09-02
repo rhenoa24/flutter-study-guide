@@ -1,13 +1,13 @@
 import 'package:activity_3/models/personal_details.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_ui/widgets/app_bar.dart';
-import 'package:shared_ui/widgets/form_button.dart';
-import 'package:shared_ui/widgets/form_checkbox.dart';
-import 'package:shared_ui/widgets/form_dropdown.dart';
-import 'package:shared_ui/widgets/form_field.dart';
-import 'package:shared_ui/widgets/form_reminder.dart';
-import 'package:shared_ui/widgets/info_banner.dart';
-import 'package:shared_ui/widgets/section_title.dart';
+import 'package:shared_core/widgets/app_bar.dart';
+import 'package:shared_core/widgets/form_button.dart';
+import 'package:shared_core/widgets/form_checkbox.dart';
+import 'package:shared_core/widgets/form_dropdown.dart';
+import 'package:shared_core/widgets/form_field.dart';
+import 'package:shared_core/widgets/form_reminder.dart';
+import 'package:shared_core/widgets/info_banner.dart';
+import 'package:shared_core/widgets/section_title.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({super.key});

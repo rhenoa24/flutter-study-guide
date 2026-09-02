@@ -3,7 +3,7 @@ import 'package:activity_7b/repository/poke_repository.dart';
 import 'package:activity_7b/screens/card_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_ui/theme/app_theme.dart';
+import 'package:shared_core/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());

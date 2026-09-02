@@ -15,7 +15,7 @@
 
 import 'package:activity_4/screens/test_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_ui/theme/app_theme.dart';
+import 'package:shared_core/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());

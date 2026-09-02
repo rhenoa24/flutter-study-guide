@@ -1,7 +1,7 @@
 import 'package:activity_5/constants/storage_keys.dart';
 import 'package:activity_5/models/registrant_details.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_ui/shared_ui.dart';
+import 'package:shared_core/shared_core.dart';
 
 class SuccessScreen extends StatefulWidget {
   const SuccessScreen({super.key});

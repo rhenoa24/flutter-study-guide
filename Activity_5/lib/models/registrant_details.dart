@@ -76,8 +76,9 @@ class PersonalDetails {
 
   @override
   bool operator ==(Object other) {
-    if (identical(this, other))
+    if (identical(this, other)) {
       return true; //if the same object, skip field checks
+    }
     return other is PersonalDetails &&
         other.firstName == firstName &&
         other.middleName == middleName &&

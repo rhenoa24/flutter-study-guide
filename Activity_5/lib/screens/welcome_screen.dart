@@ -1,7 +1,7 @@
 // Landing Screen
 import 'package:activity_5/screens/form_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_ui/shared_ui.dart';
+import 'package:shared_core/shared_core.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

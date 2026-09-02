@@ -15,10 +15,10 @@ import 'package:activity_2/widgets/home_tabs.dart';
 import 'package:activity_2/widgets/quick_actions.dart';
 import 'package:activity_2/widgets/services.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_ui/theme/app_theme.dart';
-import 'package:shared_ui/widgets/bottom_nav.dart';
-import 'package:shared_ui/widgets/header.dart';
-import 'package:shared_ui/widgets/section_title.dart';
+import 'package:shared_core/theme/app_theme.dart';
+import 'package:shared_core/widgets/bottom_nav.dart';
+import 'package:shared_core/widgets/header.dart';
+import 'package:shared_core/widgets/section_title.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_ui/widgets/form_button.dart';
+import 'package:shared_core/widgets/form_button.dart';
 
 class FailedScreen extends StatelessWidget {
   const FailedScreen({super.key});

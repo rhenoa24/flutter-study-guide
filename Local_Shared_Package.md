@@ -22,7 +22,7 @@ my_flutter_workspace/
 Still inside `my_flutter_workspace`, run:
 
 ```bash
-flutter create --template=package shared_ui
+flutter create --template=package shared_core
 ```
 
 This is the key command. The `--template=package` flag tells Flutter: "don't scaffold a full app, just make me a bare Dart/Flutter package." You'll see it generates something _leaner_ than a normal project — no `android/`, `ios/`, no `main.dart`.
@@ -30,9 +30,9 @@ This is the key command. The `--template=package` flag tells Flutter: "don't sca
 Check what got created:
 
 ```
-shared_ui/
+shared_core/
 ├── lib/
-│   └── shared_ui.dart      👈 auto-generated, we'll edit this
+│   └── shared_core.dart      👈 auto-generated, we'll edit this
 ├── test/
 ├── pubspec.yaml
 ├── README.md
@@ -42,17 +42,17 @@ Your workspace now looks like:
 
 ```
 my_flutter_workspace/
-├── shared_ui/       👈 new
+├── shared_core/       👈 new
 ├── activity_2/
 ├── activity_5/
 ```
 
 ## Step 3: Check the pubspec.yaml
 
-Open `shared_ui/pubspec.yaml`. It should look roughly like:
+Open `shared_core/pubspec.yaml`. It should look roughly like:
 
 ```yaml
-name: shared_ui
+name: shared_core
 description: "Shared theme and widgets for study projects."
 version: 0.0.1
 publish_to: "none"
@@ -75,14 +75,14 @@ Nothing to change here yet — this is fine as-is. `publish_to: 'none'` just con
 
 ## Step 4: Organize the lib folder
 
-Inside `shared_ui/lib/`, delete the placeholder content and set up folders:
+Inside `shared_core/lib/`, delete the placeholder content and set up folders:
 
 ```bash
-cd shared_ui/lib
+cd shared_core/lib
 mkdir theme widgets
 ```
 
-Now create `shared_ui/lib/theme/app_theme.dart` — paste in the `AppTheme` class from before (or your own version):
+Now create `shared_core/lib/theme/app_theme.dart` — paste in the `AppTheme` class from before (or your own version):
 
 ```dart
 import 'package:flutter/material.dart';
@@ -105,7 +105,7 @@ class AppTheme {
 
 ## Step 5: Add one shared widget (so you can see the pattern)
 
-Create `shared_ui/lib/widgets/app_button.dart`:
+Create `shared_core/lib/widgets/app_button.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -136,7 +136,7 @@ class AppButton extends StatelessWidget {
 
 ## Step 6: Set up the barrel file
 
-Open `shared_ui/lib/shared_ui.dart` (this file was auto-created — just replace its contents):
+Open `shared_core/lib/shared_core.dart` (this file was auto-created — just replace its contents):
 
 ```dart
 export 'theme/app_theme.dart';
@@ -148,9 +148,9 @@ This file's whole job is to re-export everything, so other projects only need **
 At this point your package structure is:
 
 ```
-shared_ui/
+shared_core/
 ├── lib/
-│   ├── shared_ui.dart
+│   ├── shared_core.dart
 │   ├── theme/
 │   │   └── app_theme.dart
 │   └── widgets/
@@ -166,11 +166,11 @@ Go to `activity_2/pubspec.yaml` and add the dependency, pointing at the relative
 dependencies:
   flutter:
     sdk: flutter
-  shared_ui:
-    path: ../shared_ui
+  shared_core:
+    path: ../shared_core
 ```
 
-The `../` means "go up one folder from `activity_2`, then into `shared_ui`" — this only works because both folders live inside `my_flutter_workspace` together.
+The `../` means "go up one folder from `activity_2`, then into `shared_core`" — this only works because both folders live inside `my_flutter_workspace` together.
 
 ## Step 8: Fetch the dependency
 
@@ -181,7 +181,7 @@ cd activity_2
 flutter pub get
 ```
 
-If it worked, you'll see `shared_ui` listed in the resolve output with no errors.
+If it worked, you'll see `shared_core` listed in the resolve output with no errors.
 
 ## Step 9: Use it
 
@@ -189,7 +189,7 @@ In `activity_2/lib/main.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:shared_ui/shared_ui.dart';
+import 'package:shared_core/shared_core.dart';
 
 void main() => runApp(const MyApp());
 
@@ -217,4 +217,4 @@ Run it — if the button shows up styled with your theme color, it worked.
 
 ---
 
-**Try it yourself next**: repeat Step 7–8 for `activity_5`, pointing its `path:` to the same `shared_ui` folder. Then edit `app_theme.dart`'s primary color, hot-restart both projects, and confirm they _both_ update from one file change. That's the "aha" moment that makes this pattern click. Want me to check your setup once you've tried it, or run into any errors?
+**Try it yourself next**: repeat Step 7–8 for `activity_5`, pointing its `path:` to the same `shared_core` folder. Then edit `app_theme.dart`'s primary color, hot-restart both projects, and confirm they _both_ update from one file change. That's the "aha" moment that makes this pattern click. Want me to check your setup once you've tried it, or run into any errors?

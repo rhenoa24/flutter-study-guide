@@ -1,6 +1,6 @@
 // Tab Row
 import 'package:flutter/material.dart';
-import 'package:shared_ui/widgets/tabs.dart';
+import 'package:shared_core/widgets/tabs.dart';
 
 class TabRow extends StatelessWidget {
   const TabRow({super.key});
