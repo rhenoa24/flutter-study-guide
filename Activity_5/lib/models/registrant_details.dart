@@ -74,30 +74,30 @@ class PersonalDetails {
     );
   }
 
-  // @override
-  // bool operator ==(Object other) {
-  //   if (identical(this, other))
-  //     return true; //if the same object, skip field checks
-  //   return other is PersonalDetails &&
-  //       other.firstName == firstName &&
-  //       other.middleName == middleName &&
-  //       other.noMiddleName == noMiddleName &&
-  //       other.lastName == lastName &&
-  //       other.suffix == suffix &&
-  //       other.gender == gender &&
-  //       other.nationality == nationality;
-  // }
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other))
+      return true; //if the same object, skip field checks
+    return other is PersonalDetails &&
+        other.firstName == firstName &&
+        other.middleName == middleName &&
+        other.noMiddleName == noMiddleName &&
+        other.lastName == lastName &&
+        other.suffix == suffix &&
+        other.gender == gender &&
+        other.nationality == nationality;
+  }
 
-  // @override
-  // int get hashCode => Object.hash(
-  //   firstName,
-  //   middleName,
-  //   noMiddleName,
-  //   lastName,
-  //   suffix,
-  //   gender,
-  //   nationality,
-  // );
+  @override
+  int get hashCode => Object.hash(
+    firstName,
+    middleName,
+    noMiddleName,
+    lastName,
+    suffix,
+    gender,
+    nationality,
+  );
 
   /// ---------------------------------------------------------------
 

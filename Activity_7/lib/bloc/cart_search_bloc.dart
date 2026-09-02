@@ -32,7 +32,7 @@ class CardSearchBloc extends Bloc<CardSearchEvent, CardSearchState> {
         emit(CardSearchLoaded(result.data));
       }
     } on NoCardsFoundException {
-      emit(CardSearchEmpty(query));
+      emit(CardSearchError('No match found.'));
     } catch (e) {
       emit(CardSearchError(e.toString()));
     }

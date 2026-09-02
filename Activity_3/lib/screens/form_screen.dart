@@ -140,7 +140,8 @@ class _FormScreenState extends State<FormScreen> {
                     const SizedBox(height: 14),
                     FormButton(
                       label: 'Next',
-                      onPressed: _details.isComplete ? _onNext : null,
+                      enabled: _details.isComplete,
+                      onPressed: _onNext,
                     ),
                     const SizedBox(height: 8),
 
