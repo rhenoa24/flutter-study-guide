@@ -253,6 +253,12 @@ Additional thoughts:
 - Expected to have 2 screens. (main list screen & details screen)
 - Test: Should initially display 10 pokemon from the list. Upon scrolling another 10 will be added. Tapping an item from the list displays detailed view
 
+**Post Activity Insights
+- To understand how API responses translate to UI screens
+- Creating effective data models according to your use case
+- Properly implement screen navigation
+- Utilizing BLOC state management to control data and UI
+- End to end development
 
 
 
