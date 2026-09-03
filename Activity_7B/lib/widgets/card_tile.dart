@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_core/widgets/TCG/thumbnail_list.dart';
 
 class CardListTile extends StatelessWidget {
   final int id;
@@ -21,41 +22,13 @@ class CardListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return ListTile(
+    return ThumbnailListTile(
+      title: _capitalizedName,
+      trailingText: _formattedId,
+      imageUrl: imageUrl,
       onTap: onTap,
-      leading: SizedBox(
-        width: 48,
-        height: 48,
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.contain,
-          errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.image_not_supported),
-          loadingBuilder: (context, child, progress) {
-            if (progress == null) return child;
-            return const Center(
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-            );
-          },
-        ),
-      ),
-      title: Text(
-        _capitalizedName,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-      trailing: Text(
-        _formattedId,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: colorScheme.primaryContainer,
-        ),
-      ),
+      imageWidth: 48,
+      imageHeight: 48,
     );
   }
 }

@@ -105,7 +105,7 @@ class _CardListScreenState extends State<CardListScreen> {
               child: BlocBuilder<CardListBloc, CardListState>(
                 // listener: (context, state) => _maybeAutoLoad(state),
                 builder: (context, state) {
-                  print('query: $_searchQuery');
+                  // print('query: $_searchQuery');
 
                   if (state.isLoading) {
                     return const _LoadingView();
