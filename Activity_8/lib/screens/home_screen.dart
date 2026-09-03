@@ -7,29 +7,16 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Activity 8')),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const MtgSearchScreen()),
-              ),
-              child: const Text('MTG'),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const PokeListScreen()),
-              ),
-              child: const Text('Pokémon'),
-            ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: TabBar(
+          tabs: [
+            Tab(icon: Icon(Icons.style), text: 'MTG'),
+            Tab(icon: Icon(Icons.catching_pokemon), text: 'Pokémon'),
           ],
         ),
+        body: const TabBarView(children: [MtgSearchScreen(), PokeListScreen()]),
       ),
     );
   }
