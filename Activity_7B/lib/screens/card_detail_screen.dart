@@ -65,17 +65,8 @@ class _CardDetailView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (pokemon.sprites.bestImage != null)
-                          Center(
-                            child: Image.network(
-                              pokemon.sprites.bestImage!,
-                              height: 220,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(
-                                    Icons.image_not_supported,
-                                    size: 100,
-                                  ),
-                            ),
-                          ),
+                          FramedImage(imageUrl: pokemon.sprites.bestImage!),
+
                         const SizedBox(height: 16),
                         //
                         TitleTrail(
@@ -87,15 +78,14 @@ class _CardDetailView extends StatelessWidget {
                         //
                         const SizedBox(height: 8),
                         //
-                        Wrap(
-                          spacing: 8,
-                          children: pokemon.types
-                              .map(
-                                (t) => Chip(label: Text(_capitalize(t.name))),
-                              )
+                        TypeTag(
+                          tags: pokemon.types
+                              .map((t) => _capitalize(t.name))
                               .toList(),
                         ),
+
                         const SizedBox(height: 16),
+
                         //
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -117,16 +107,24 @@ class _CardDetailView extends StatelessWidget {
                         //
                         const SizedBox(height: 20),
 
-                        Text(
-                          'Abilities',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 4),
-                        ...pokemon.abilities.map(
-                          (a) => Text(
-                            '${_capitalize(a.name)}${a.isHidden ? ' (hidden)' : ''}',
+                        DividedText(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Abilities',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              const SizedBox(height: 4),
+                              ...pokemon.abilities.map(
+                                (a) => Text(
+                                  '${_capitalize(a.name)}${a.isHidden ? ' (hidden)' : ''}',
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+
                         const SizedBox(height: 20),
 
                         Text(
@@ -134,7 +132,12 @@ class _CardDetailView extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 8),
-                        ...pokemon.stats.map((s) => _StatBar(stat: s)),
+                        ...pokemon.stats.map(
+                          (s) => StatBar(
+                            label: s.name.replaceAll('-', ' ').toUpperCase(),
+                            value: s.baseStat,
+                          ),
+                        ),
                       ],
                     ),
                   );
@@ -143,41 +146,6 @@ class _CardDetailView extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _StatBar extends StatelessWidget {
-  final PokemonStat stat;
-  const _StatBar({required this.stat});
-
-  @override
-  Widget build(BuildContext context) {
-    // Base stats top out around 255 in practice; clamp so the bar never
-    // overflows for unusually high values.
-    final ratio = (stat.baseStat / 255).clamp(0.0, 1.0);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 150,
-            child: Text(stat.name.replaceAll('-', ' ').toUpperCase()),
-          ),
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: LinearProgressIndicator(value: ratio, minHeight: 8),
-            ),
-          ),
-          const SizedBox(width: 8),
-          SizedBox(
-            width: 30,
-            child: Text('${stat.baseStat}', textAlign: TextAlign.right),
-          ),
-        ],
       ),
     );
   }

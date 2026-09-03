@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 class DividedText extends StatelessWidget {
-  final String text;
-  const DividedText({super.key, required this.text});
+  final String? text;
+  final Widget? child;
+  const DividedText({super.key, this.text, this.child})
+    : assert(
+        text != null || child != null,
+        'DividedText needs either text or child.',
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class DividedText extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Text(text),
+        child: child ?? Text(text!),
       ),
     );
   }
