@@ -1,5 +1,6 @@
 import 'package:activity_7/models/mtg_card.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_core/widgets/TCG/thumbnail_list.dart';
 
 class CardListTile extends StatelessWidget {
   final MtgCard card;
@@ -9,36 +10,12 @@ class CardListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final thumbnailUrl = card.displayImageUris?.small;
-    final colorScheme = Theme.of(context).colorScheme;
-    return ListTile(
+    return ThumbnailListTile(
+      title: card.name,
+      subtitle: card.typeLine,
+      trailingText: card.manaCost,
+      imageUrl: card.displayImageUris?.small,
       onTap: onTap,
-      leading: SizedBox(
-        width: 59,
-        height: 64,
-        child: thumbnailUrl == null
-            ? const Icon(Icons.image_not_supported)
-            : ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: Image.network(
-                  thumbnailUrl,
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topCenter,
-                  errorBuilder: (context, error, StackTrace) =>
-                      const Icon(Icons.broken_image),
-                ),
-              ),
-      ),
-      title: Text(card.name, style: TextStyle(fontWeight: FontWeight.bold)),
-      subtitle: Text(
-        card.typeLine,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
-      trailing: Text(
-        card.manaCost ?? '',
-        style: TextStyle(color: colorScheme.primaryContainer),
-      ),
     );
   }
 }

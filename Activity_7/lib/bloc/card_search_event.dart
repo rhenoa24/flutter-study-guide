@@ -1,7 +1,6 @@
 abstract class CardSearchEvent {
   const CardSearchEvent();
 
-  @override
   List<Object?> get props => [];
 }
 
