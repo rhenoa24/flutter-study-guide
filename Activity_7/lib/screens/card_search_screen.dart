@@ -51,7 +51,7 @@ class _CardSearchScreenState extends State<CardSearchScreen> {
               child: BlocBuilder<CardSearchBloc, CardSearchState>(
                 builder: (context, state) {
                   if (state is CardSearchInitial) {
-                    return const _CenteredMessage(
+                    return const CenteredMessage(
                       text: 'Type a card name above to search.',
                     );
                   }
@@ -61,7 +61,7 @@ class _CardSearchScreenState extends State<CardSearchScreen> {
                   }
 
                   if (state is CardSearchError) {
-                    return _CenteredMessage(
+                    return CenteredMessage(
                       text: 'Something went wrong: ${state.message}',
                     );
                   }
@@ -90,21 +90,6 @@ class _CardSearchScreenState extends State<CardSearchScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _CenteredMessage extends StatelessWidget {
-  final String text;
-  const _CenteredMessage({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Text(text, textAlign: TextAlign.center),
       ),
     );
   }
