@@ -5,6 +5,7 @@ import 'package:activity_7b/models/poke_card.dart';
 import 'package:activity_7b/repository/poke_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_core/shared_core.dart';
 import 'package:shared_core/widgets/app_bar.dart';
 
 class CardDetailScreen extends StatelessWidget {
@@ -50,11 +51,11 @@ class _CardDetailView extends StatelessWidget {
               child: BlocBuilder<CardDetailBloc, CardDetailState>(
                 builder: ((context, state) {
                   if (state is CardDetailLoading) {
-                    return _LoadingView();
+                    return LoadingView();
                   }
 
                   if (state is CardDetailError) {
-                    return _ErrorView(message: state.message);
+                    return ErrorView(message: state.message);
                   }
 
                   final pokemon = (state as CardDetailLoaded).card;
@@ -77,27 +78,12 @@ class _CardDetailView extends StatelessWidget {
                           ),
                         const SizedBox(height: 16),
                         //
-                        Row(
-                          children: [
-                            Text(
-                              _capitalize(pokemon.name),
-                              style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            //
-                            const Spacer(),
-                            //
-                            Text(
+                        TitleTrail(
+                          title: _capitalize(pokemon.name),
+                          trailingText:
                               '#${pokemon.id.toString().padLeft(3, '0')}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: colorScheme.primaryContainer,
-                              ),
-                            ),
-                          ],
                         ),
+
                         //
                         const SizedBox(height: 8),
                         //
@@ -114,15 +100,15 @@ class _CardDetailView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            _StatColumn(
+                            StatColumn(
                               label: 'Height',
                               value: '${pokemon.heightInMeters} m',
                             ),
-                            _StatColumn(
+                            StatColumn(
                               label: 'Weight',
                               value: '${pokemon.weightInKg} kg',
                             ),
-                            _StatColumn(
+                            StatColumn(
                               label: 'Base XP',
                               value: '${pokemon.baseExperience}',
                             ),
@@ -158,49 +144,6 @@ class _CardDetailView extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _LoadingView extends StatelessWidget {
-  const _LoadingView();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
-  }
-}
-
-class _ErrorView extends StatelessWidget {
-  final String message;
-  const _ErrorView({required this.message});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Text('Something went wrong: $message'),
-      ),
-    );
-  }
-}
-
-class _StatColumn extends StatelessWidget {
-  final String label;
-  final String value;
-  const _StatColumn({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text(
-          label,
-          style: TextStyle(color: Theme.of(context).colorScheme.outline),
-        ),
-      ],
     );
   }
 }

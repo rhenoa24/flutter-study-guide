@@ -34,7 +34,10 @@ class TitleTrail extends StatelessWidget {
         if (trailingText != null)
           Text(
             trailingText!,
-            style: TextStyle(color: colorScheme.primaryContainer),
+            style: TextStyle(
+              color: colorScheme.primaryContainer,
+              fontWeight: FontWeight.bold,
+            ),
           ),
       ],
     );

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_core/helpers/shared_prefs_helper.dart';
-import 'package:shared_core/widgets/app_bar.dart';
-import 'package:shared_core/widgets/form_button.dart';
+import 'package:shared_core/shared_core.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
