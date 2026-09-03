@@ -260,5 +260,14 @@ Additional thoughts:
 - Utilizing BLOC state management to control data and UI
 - End to end development
 
+## 🎯 Activity 8
+**Modify the Pokémon project:**
+- Add pokemon description using the API stated here https://pokeapi.co/docs/v2#pokemon-species
+- Make the pokemon image viewable full screen similar to Shopee product images (with zoom in, pan functionality - use plugin)
+
+**Modify MTG Project**
+- In your main screen (one with the search bar) add a button to fetch random card using this API https://scryfall.com/docs/api/cards/random
+- Make the Card image viewable full screen (with zoom in, pan functionality - use plugin)
+
 
 
