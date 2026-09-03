@@ -1,12 +1,11 @@
 import 'package:activity_7b/bloc/cart_detail/card_detail.bloc.dart';
 import 'package:activity_7b/bloc/cart_detail/card_detail_event.dart';
 import 'package:activity_7b/bloc/cart_detail/card_detail_state.dart';
-import 'package:activity_7b/models/poke_card.dart';
+import 'package:activity_7b/models/poke_type.dart';
 import 'package:activity_7b/repository/poke_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_core/shared_core.dart';
-import 'package:shared_core/widgets/app_bar.dart';
 
 class CardDetailScreen extends StatelessWidget {
   final String name;
@@ -81,6 +80,9 @@ class _CardDetailView extends StatelessWidget {
                         TypeTag(
                           tags: pokemon.types
                               .map((t) => _capitalize(t.name))
+                              .toList(),
+                          tagColors: pokemon.types
+                              .map((t) => colorForType(t.name))
                               .toList(),
                         ),
 

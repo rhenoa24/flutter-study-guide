@@ -30,4 +30,4 @@ export 'widgets/TCG/loading_indicator.dart';
 export 'widgets/TCG/error_view.dart';
 export 'widgets/TCG/stat_column.dart';
 export 'widgets/TCG/stat_bar.dart';
-export 'widgets/TCG/type-tag.dart';
+export 'widgets/TCG/type_tag.dart';
