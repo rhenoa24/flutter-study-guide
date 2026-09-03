@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FormIconButton extends StatelessWidget {
-  final Icon icon;
+  final IconData icon;
   final bool enabled;
   final VoidCallback? onPressed;
 
@@ -14,6 +14,21 @@ class FormIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: enabled ? onPressed : null, icon: icon);
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return SizedBox(
+      height: 48,
+      child: IconButton.filled(
+        onPressed: enabled ? onPressed : null,
+        icon: Icon(icon, size: 28),
+        style: IconButton.styleFrom(
+          backgroundColor: colorScheme.primaryContainer,
+          foregroundColor: colorScheme.onSurface,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
   }
 }

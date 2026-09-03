@@ -71,8 +71,9 @@ class _CardSearchScreenState extends State<MtgSearchScreen> {
                       onSubmitted: _submitSearch,
                     ),
                   ),
+                  const SizedBox(width: 8),
                   FormIconButton(
-                    icon: Icon(Icons.casino),
+                    icon: Icons.casino,
                     enabled: !_isFetchingRandom,
                     onPressed: _fetchRandomCard,
                   ),
