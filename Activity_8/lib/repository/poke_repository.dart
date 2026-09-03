@@ -48,4 +48,24 @@ class PokeRepository {
       'Failed to load pokemon detail (${response.statusCode})',
     );
   }
+
+  Future<String?> fetchPokeDescription(String nameOrId) async {
+    final response = await http.get(
+      Uri.parse('https://pokeapi.co/api/v2/pokemon-species/$nameOrId'),
+    );
+
+    if (response.statusCode != 200) return null;
+
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    final entries = (json['flavor_text_entries'] as List<dynamic>? ?? []);
+
+    final englishEntry = entries.cast<Map<String, dynamic>>().firstWhere(
+      (e) => e['language']?['name'] == 'en',
+      orElse: () => const {},
+    );
+
+    final raw = englishEntry['flavor_text'] as String?;
+    // pokemon-species flavor text is riddled with \n and \f line breaks
+    return raw?.replaceAll(RegExp(r'[\n\f\r]'), ' ').trim();
+  }
 }

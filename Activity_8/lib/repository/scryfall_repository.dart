@@ -26,4 +26,17 @@ class ScryfallRepository {
 
     throw Exception('Scryfall request failed (status ${response.statusCode})');
   }
+
+  Future<MtgCard> fetchRandomCard() async {
+    final response = await http.get(
+      Uri.parse('https://api.scryfall.com/cards/random'),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to fetch a random card (${response.statusCode})');
+    }
+
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    return MtgCard.fromJson(json);
+  }
 }

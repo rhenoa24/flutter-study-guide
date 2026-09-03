@@ -1,4 +1,4 @@
-import 'package:activity_8/bloc/pokemon/cart_detail/poke_detail.bloc.dart';
+import 'package:activity_8/bloc/pokemon/cart_detail/poke_detail_bloc.dart';
 import 'package:activity_8/bloc/pokemon/cart_detail/poke_detail_event.dart';
 import 'package:activity_8/bloc/pokemon/cart_detail/poke_detail_state.dart';
 import 'package:activity_8/models/poke_type.dart';
@@ -64,7 +64,22 @@ class _PokeDetailView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (pokemon.sprites.bestImage != null)
-                          FramedImage(imageUrl: pokemon.sprites.bestImage!),
+                          GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ImageViewer(
+                                  imageUrl: pokemon.sprites.bestImage!,
+                                ),
+                              ),
+                            ),
+                            child: Hero(
+                              tag: pokemon.sprites.bestImage!,
+                              child: FramedImage(
+                                imageUrl: pokemon.sprites.bestImage!,
+                              ),
+                            ),
+                          ),
 
                         const SizedBox(height: 16),
                         //
@@ -123,6 +138,19 @@ class _PokeDetailView extends StatelessWidget {
                                   '${_capitalize(a.name)}${a.isHidden ? ' (hidden)' : ''}',
                                 ),
                               ),
+
+                              if (pokemon.description != null &&
+                                  pokemon.description!.isNotEmpty) ...[
+                                const SizedBox(height: 20),
+                                Text(
+                                  'Description',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(pokemon.description!),
+                              ],
                             ],
                           ),
                         ),

@@ -109,6 +109,7 @@ class PokemonDetail {
   final List<PokemonAbility> abilities;
   final List<PokemonStat> stats;
   final PokemonSprites sprites;
+  final String? description; // NEW
 
   const PokemonDetail({
     required this.id,
@@ -120,10 +121,26 @@ class PokemonDetail {
     required this.abilities,
     required this.stats,
     required this.sprites,
+    this.description, // NEW
   });
 
   double get heightInMeters => height / 10;
   double get weightInKg => weight / 10;
+
+  PokemonDetail copyWith({String? description}) {
+    return PokemonDetail(
+      id: id,
+      name: name,
+      height: height,
+      weight: weight,
+      baseExperience: baseExperience,
+      types: types,
+      abilities: abilities,
+      stats: stats,
+      sprites: sprites,
+      description: description ?? this.description,
+    );
+  }
 
   factory PokemonDetail.fromJson(Map<String, dynamic> json) {
     return PokemonDetail(

@@ -18,6 +18,7 @@ export 'widgets/form_button.dart';
 export 'widgets/form_reminder.dart';
 export 'widgets/form_checkbox.dart';
 export 'widgets/search_input.dart';
+export 'widgets/form_icon_button.dart';
 //
 export 'widgets/TCG/thumbnail_list.dart';
 export 'widgets/TCG/centered_text.dart';
@@ -31,3 +32,4 @@ export 'widgets/TCG/error_view.dart';
 export 'widgets/TCG/stat_column.dart';
 export 'widgets/TCG/stat_bar.dart';
 export 'widgets/TCG/type_tag.dart';
+export 'widgets/TCG/image_viewer.dart';

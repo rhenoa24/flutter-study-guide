@@ -1,6 +1,7 @@
 import 'package:activity_8/bloc/mtg/mtg_search_bloc.dart';
 import 'package:activity_8/bloc/mtg/mtg_search_event.dart';
 import 'package:activity_8/bloc/mtg/mtg_search_state.dart';
+import 'package:activity_8/repository/scryfall_repository.dart';
 import 'package:activity_8/screens/mtg/mtg_detail_screen.dart';
 import 'package:activity_8/widgets/mtg/mtg_tile.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,29 @@ class MtgSearchScreen extends StatefulWidget {
 
 class _CardSearchScreenState extends State<MtgSearchScreen> {
   final TextEditingController _controller = TextEditingController();
+  bool _isFetchingRandom = false;
 
   void _submitSearch(String query) {
     context.read<MtgSearchBloc>().add(SearchMtgEvents(query));
+  }
+
+  Future<void> _fetchRandomCard() async {
+    setState(() => _isFetchingRandom = true);
+    try {
+      final card = await context.read<ScryfallRepository>().fetchRandomCard();
+      if (!mounted) return;
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => MtgDetailScreen(card: card)),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Could not fetch a random card: $e')),
+      );
+    } finally {
+      if (mounted) setState(() => _isFetchingRandom = false);
+    }
   }
 
   @override
@@ -39,11 +60,23 @@ class _CardSearchScreenState extends State<MtgSearchScreen> {
             // Nav
             Padding(
               padding: EdgeInsets.all(20),
-              child: SearchInput(
-                controller: _controller,
-                textInputAction: TextInputAction.search,
-                hintText: 'Search for a card (e.g. robot)',
-                onSubmitted: _submitSearch,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: SearchInput(
+                      controller: _controller,
+                      textInputAction: TextInputAction.search,
+                      hintText: 'Search for a card (e.g. robot)',
+                      onSubmitted: _submitSearch,
+                    ),
+                  ),
+                  FormIconButton(
+                    icon: Icon(Icons.casino),
+                    enabled: !_isFetchingRandom,
+                    onPressed: _fetchRandomCard,
+                  ),
+                ],
               ),
             ),
             // Body

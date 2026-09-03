@@ -18,7 +18,15 @@ class PokeDetailBloc extends Bloc<PokeDetailEvent, PokeDetailState> {
     emit(const PokeDetailLoading());
     try {
       final card = await repository.fetchPokeDetail(event.nameOrId);
-      emit(PokeDetailLoaded(card));
+
+      String? description;
+      try {
+        description = await repository.fetchPokeDescription(event.nameOrId);
+      } catch (_) {
+        description = null; // non-critical — show the card without it
+      }
+
+      emit(PokeDetailLoaded(card.copyWith(description: description)));
     } catch (e) {
       emit(PokeDetailError(e.toString()));
     }
