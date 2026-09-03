@@ -38,7 +38,9 @@ class _PokeListScreenState extends State<PokeListScreen> {
   }
 
   void _onScroll() {
-    final threshold = _scrollController.position.maxScrollExtent - 200;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final threshold =
+        _scrollController.position.maxScrollExtent - (screenHeight * 0.5);
     if (_scrollController.position.pixels >= threshold) {
       context.read<PokeListBloc>().add(const LoadMorePoke());
     }
