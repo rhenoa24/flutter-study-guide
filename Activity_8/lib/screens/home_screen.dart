@@ -1,5 +1,5 @@
 import 'package:activity_8/screens/mtg/mtg_search_screen.dart';
-import 'package:activity_8/screens/pokemon/card_list_screen.dart';
+import 'package:activity_8/screens/pokemon/poke_list_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

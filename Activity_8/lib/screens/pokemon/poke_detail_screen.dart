@@ -1,6 +1,6 @@
-import 'package:activity_8/bloc/pokemon/cart_detail/card_detail.bloc.dart';
-import 'package:activity_8/bloc/pokemon/cart_detail/card_detail_event.dart';
-import 'package:activity_8/bloc/pokemon/cart_detail/card_detail_state.dart';
+import 'package:activity_8/bloc/pokemon/cart_detail/poke_detail.bloc.dart';
+import 'package:activity_8/bloc/pokemon/cart_detail/poke_detail_event.dart';
+import 'package:activity_8/bloc/pokemon/cart_detail/poke_detail_state.dart';
 import 'package:activity_8/models/poke_type.dart';
 import 'package:activity_8/repository/poke_repository.dart';
 import 'package:flutter/material.dart';

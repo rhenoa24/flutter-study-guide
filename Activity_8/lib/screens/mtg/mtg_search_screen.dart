@@ -1,4 +1,4 @@
-import 'package:activity_8/bloc/mtg/cart_search_bloc.dart';
+import 'package:activity_8/bloc/mtg/mtg_search_bloc.dart';
 import 'package:activity_8/bloc/mtg/mtg_search_event.dart';
 import 'package:activity_8/bloc/mtg/mtg_search_state.dart';
 import 'package:activity_8/screens/mtg/mtg_detail_screen.dart';

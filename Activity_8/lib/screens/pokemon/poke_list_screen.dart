@@ -1,7 +1,7 @@
-import 'package:activity_8/bloc/pokemon/card_list/card_list_event.dart';
-import 'package:activity_8/bloc/pokemon/card_list/card_list_state.dart';
-import 'package:activity_8/bloc/pokemon/card_list/cart_list_bloc.dart';
-import 'package:activity_8/screens/pokemon/card_detail_screen.dart';
+import 'package:activity_8/bloc/pokemon/card_list/poke_list_event.dart';
+import 'package:activity_8/bloc/pokemon/card_list/poke_list_state.dart';
+import 'package:activity_8/bloc/pokemon/card_list/poke_list_bloc.dart';
+import 'package:activity_8/screens/pokemon/poke_detail_screen.dart';
 import 'package:activity_8/widgets/pokemon/poke_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

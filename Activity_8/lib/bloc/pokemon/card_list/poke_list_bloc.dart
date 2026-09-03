@@ -1,5 +1,5 @@
-import 'package:activity_8/bloc/pokemon/card_list/card_list_event.dart';
-import 'package:activity_8/bloc/pokemon/card_list/card_list_state.dart';
+import 'package:activity_8/bloc/pokemon/card_list/poke_list_event.dart';
+import 'package:activity_8/bloc/pokemon/card_list/poke_list_state.dart';
 import 'package:activity_8/repository/poke_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,5 +1,5 @@
-import 'package:activity_8/bloc/mtg/cart_search_bloc.dart';
-import 'package:activity_8/bloc/pokemon/card_list/cart_list_bloc.dart';
+import 'package:activity_8/bloc/mtg/mtg_search_bloc.dart';
+import 'package:activity_8/bloc/pokemon/card_list/poke_list_bloc.dart';
 import 'package:activity_8/repository/poke_repository.dart';
 import 'package:activity_8/repository/scryfall_repository.dart';
 import 'package:activity_8/screens/home_screen.dart';
