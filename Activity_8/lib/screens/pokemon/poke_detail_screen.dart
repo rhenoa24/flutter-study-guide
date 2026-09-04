@@ -64,22 +64,7 @@ class _PokeDetailView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (pokemon.sprites.bestImage != null)
-                          GestureDetector(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => ImageViewer(
-                                  imageUrl: pokemon.sprites.bestImage!,
-                                ),
-                              ),
-                            ),
-                            child: Hero(
-                              tag: pokemon.sprites.bestImage!,
-                              child: FramedImage(
-                                imageUrl: pokemon.sprites.bestImage!,
-                              ),
-                            ),
-                          ),
+                          FramedImage(imageUrl: pokemon.sprites.bestImage!),
 
                         const SizedBox(height: 16),
                         //

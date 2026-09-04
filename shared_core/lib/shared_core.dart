@@ -32,4 +32,3 @@ export 'widgets/TCG/error_view.dart';
 export 'widgets/TCG/stat_column.dart';
 export 'widgets/TCG/stat_bar.dart';
 export 'widgets/TCG/type_tag.dart';
-export 'widgets/TCG/image_viewer.dart';

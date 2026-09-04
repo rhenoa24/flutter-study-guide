@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_viewer/photo_viewer.dart';
 
 class FramedImage extends StatelessWidget {
   final String imageUrl;
@@ -27,7 +28,7 @@ class FramedImage extends StatelessWidget {
       child: Center(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(borderRadius),
-          child: Image.network(imageUrl),
+          child: PhotoViewerImage(imageUrl: imageUrl),
         ),
       ),
     );

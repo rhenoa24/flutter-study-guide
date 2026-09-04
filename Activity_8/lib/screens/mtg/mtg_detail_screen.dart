@@ -32,19 +32,7 @@ class MtgDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Image
-                    if (imageUrl != null)
-                      GestureDetector(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ImageViewer(imageUrl: imageUrl),
-                          ),
-                        ),
-                        child: Hero(
-                          tag: imageUrl,
-                          child: FramedImage(imageUrl: imageUrl),
-                        ),
-                      ),
+                    if (imageUrl != null) FramedImage(imageUrl: imageUrl),
 
                     const SizedBox(height: 16),
                     TitleTrail(

@@ -1,7 +1,6 @@
 import 'package:activity_8/bloc/mtg/mtg_function_bloc.dart';
 import 'package:activity_8/bloc/mtg/mtg_function_event.dart';
 import 'package:activity_8/bloc/mtg/mtg_function_state.dart';
-import 'package:activity_8/repository/scryfall_repository.dart';
 import 'package:activity_8/screens/mtg/mtg_detail_screen.dart';
 import 'package:activity_8/widgets/mtg/mtg_tile.dart';
 import 'package:flutter/material.dart';
