@@ -1,4 +1,4 @@
-import 'package:activity_8/bloc/mtg/mtg_search_bloc.dart';
+import 'package:activity_8/bloc/mtg/mtg_function_bloc.dart';
 import 'package:activity_8/bloc/pokemon/card_list/poke_list_bloc.dart';
 import 'package:activity_8/repository/poke_repository.dart';
 import 'package:activity_8/repository/scryfall_repository.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) =>
-                MtgSearchBloc(repository: context.read<ScryfallRepository>()),
+                MtgFunctionBloc(repository: context.read<ScryfallRepository>()),
           ),
         ],
         child: MaterialApp(

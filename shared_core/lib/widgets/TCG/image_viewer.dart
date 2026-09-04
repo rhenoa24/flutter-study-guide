@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
+// import 'package:photo_view/photo_view.dart';
+import 'package:photo_viewer/photo_viewer.dart';
 
 class ImageViewer extends StatelessWidget {
   final String imageUrl;
@@ -13,12 +14,12 @@ class ImageViewer extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          PhotoView(
-            imageProvider: NetworkImage(imageUrl),
-            heroAttributes: PhotoViewHeroAttributes(tag: heroTag ?? imageUrl),
-            minScale: PhotoViewComputedScale.contained,
-            maxScale: PhotoViewComputedScale.covered * 3,
-            backgroundDecoration: const BoxDecoration(color: Colors.black),
+          PhotoViewerImage(
+            imageUrl: imageUrl,
+            // heroAttributes: PhotoViewHeroAttributes(tag: heroTag ?? imageUrl),
+            // minScale: PhotoViewComputedScale.contained,
+            // maxScale: PhotoViewComputedScale.covered * 3,
+            // backgroundDecoration: const BoxDecoration(color: Colors.black),
           ),
           SafeArea(
             child: Padding(
